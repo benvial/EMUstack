@@ -55,7 +55,7 @@ C
       file2_mesh = geoname(1:namelength2)//".mail"
       file_ui    = geoname(1:namelength2)//".log"
 C
-      com_line = "gmsh -0 -2  -order 2 -v 0 -o " //
+      com_line = "gmsh -format msh2 -0 -2 -order 2 -v 0 -o " //
      *    file1_mesh // " " // file0_mesh
 C
       call system(com_line)

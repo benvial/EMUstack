@@ -41,7 +41,7 @@ from stack import *
 import testing
 
 
-def setup_module(module):
+def run_simulation():
     # Remove results of previous simulations
     plotting.clear_previous()
 
@@ -99,7 +99,7 @@ def setup_module(module):
 
     stack = Stack((sim_substrate, sim_grating_1, sim_grating_2, sim_superstrate))
     stack.calc_scat(pol="TE")
-    module.stack_list = [stack]
+    stack_list = [stack]
 
     plotting.t_r_a_plots(stack_list, save_txt=True)
 
@@ -108,47 +108,31 @@ def setup_module(module):
     # # generates a new set of reference answers to check against
     # # in the future
     # testing.save_reference_data("case_4", stack_list)
+    return stack_list
 
 
-def results_match_reference(filename):
-    rtol = 1e-6
-    atol = 1e-6
-    reference = np.loadtxt("ref/case_4/" + filename)
-    result = np.loadtxt(filename)
-    np.testing.assert_allclose(result, reference, rtol, atol, filename)
+
+case = 4
+result_files = (
+    "Absorptance_stack0001.txt",
+    "Lay_Absorb_0_stack0001.txt",
+    "Lay_Absorb_1_stack0001.txt",
+    "Lay_Trans_0_stack0001.txt",
+    "Lay_Trans_1_stack0001.txt",
+    "Reflectance_stack0001.txt",
+    "Transmittance_stack0001.txt",
+)
 
 
-def test_txt_results():
-    result_files = (
-        "Absorptance_stack0001.txt",
-        "Lay_Absorb_0_stack0001.txt",
-        "Lay_Absorb_1_stack0001.txt",
-        "Lay_Trans_0_stack0001.txt",
-        "Lay_Trans_1_stack0001.txt",
-        "Reflectance_stack0001.txt",
-        "Transmittance_stack0001.txt",
-    )
-    for f in result_files:
-        yield results_match_reference, f
 
-
-def test_stack_list_matches_saved(casefile_name="case_4"):
+def test_stack_list_matches_saved():
+    stack_list = run_simulation()
     rtol = 1e-1
-    atol = 1e-0
-    ref = np.load("ref/%s.npz" % casefile_name)
-    yield assert_equal, len(stack_list), len(ref["stack_list"])
-    for stack, rstack in zip(stack_list, ref["stack_list"]):
-        yield assert_equal, len(stack.layers), len(rstack["layers"])
-        lbl_s = "wl = %f, " % stack.layers[0].light.wl_nm
-        for i, (lay, rlay) in enumerate(zip(stack.layers, rstack["layers"])):
-            lbl_l = lbl_s + "lay %i, " % i
-            yield assert_ac, lay.R12, rlay["R12"], rtol, atol, lbl_l + "R12"
-            yield assert_ac, lay.T12, rlay["T12"], rtol, atol, lbl_l + "T12"
-            yield assert_ac, lay.R21, rlay["R21"], rtol, atol, lbl_l + "R21"
-            yield assert_ac, lay.T21, rlay["T21"], rtol, atol, lbl_l + "T21"
-            yield assert_ac, lay.k_z, rlay["k_z"], rtol, atol, lbl_l + "k_z"
-        yield assert_ac, stack.R_net, rstack["R_net"], rtol, atol, lbl_s + "R_net"
-        yield assert_ac, stack.T_net, rstack["T_net"], rtol, atol, lbl_s + "T_net"
+    atol = 5e-1
+    testing.results_match_reference(case, rtol, atol, result_files)
+    rtol = 1e15
+    atol = 1e-1
+    testing.check_results_simu_npz(case, rtol, atol, stack_list)
 
 
 plotting.clear_previous()

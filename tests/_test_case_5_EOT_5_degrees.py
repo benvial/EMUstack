@@ -40,7 +40,7 @@ from numpy.testing import assert_equal
 import testing
 
 
-def setup_module(module):
+def setup_module():
     ################ Light parameters #####################
     wl_1     = 1.11*940
     wl_2     = 1.15*940
@@ -56,7 +56,7 @@ def setup_module(module):
     diameter = 266
     NHs = objects.NanoStruct('2D_array', period, diameter, height_nm = 200,
         inclusion_a = materials.Air, background = materials.Au, loss = True,
-        square = True, make_mesh_now = False, mesh_file='4testing-940_266_sq.mail')
+        inc_shape = "square", make_mesh_now = False, mesh_file='4testing-940_266_sq.mail')
 
     superstrate = objects.ThinFilm(period = period, height_nm = 'semi_inf',
         material = materials.Air, loss = False)
@@ -66,13 +66,13 @@ def setup_module(module):
 
     num_BM = 100
     ################ Evaluate each layer individually ##############
-    sim_NHs         = NHs.calc_modes(light, num_BM = num_BM)
+    sim_NHs         = NHs.calc_modes(light, num_BMs = num_BM)
     sim_superstrate = superstrate.calc_modes(light)
     sim_substrate   = substrate.calc_modes(light)
 
     stack = Stack((sim_substrate, sim_NHs, sim_superstrate))
     stack.calc_scat(pol = 'TM')
-    module.stack_list = [stack]
+    stack_list = [stack]
 
 
     # # # # SAVE DATA AS REFERENCE
@@ -83,28 +83,31 @@ def setup_module(module):
     # # Rnet = stack_list[0].R_net[num_pw_per_pol,num_pw_per_pol]
     # # print Rnet
     # testing.save_reference_data("case_5", stack_list)
+    return stack_list
 
 
 def test_stack_list_matches_saved(casefile_name = 'case_5'):
+    stack_list = setup_module()
     rtol = 1e-4
     atol = 1e-4
     rtol_mats = 1e-4
     atol_mats = 1e-1
     ref = np.load("ref/%s.npz" % casefile_name)
-    yield assert_equal, len(stack_list), len(ref['stack_list'])
-    for stack, rstack in zip(stack_list, ref['stack_list']):
-        yield assert_equal, len(stack.layers), len(rstack['layers'])
+    ref = np.load("ref/%s.npz" % casefile_name, allow_pickle=True, encoding="latin1")
+    assert_equal(len(stack_list), len(ref["stack_list"]))
+    for stack, rstack in zip(stack_list, ref["stack_list"]):
+        assert_equal(len(stack.layers), len(rstack["layers"]))
         lbl_s = "wl = %f, " % stack.layers[0].light.wl_nm
-        for i, (lay, rlay) in enumerate(zip(stack.layers, rstack['layers'])):
+        for i, (lay, rlay) in enumerate(zip(stack.layers, rstack["layers"])):
             lbl_l = lbl_s + "lay %i, " % i
-            yield assert_ac, lay.R12, rlay['R12'], rtol_mats, atol_mats, lbl_l + 'R12'
-            yield assert_ac, lay.T12, rlay['T12'], rtol_mats, atol_mats, lbl_l + 'T12'
-            yield assert_ac, lay.R21, rlay['R21'], rtol_mats, atol_mats, lbl_l + 'R21'
-            yield assert_ac, lay.T21, rlay['T21'], rtol_mats, atol_mats, lbl_l + 'T21'
-            yield assert_ac, lay.k_z, rlay['k_z'], rtol, atol, lbl_l + 'k_z'
-            #TODO: yield assert_ac, lay.sol1, rlay['sol1']
-        yield assert_ac, stack.R_net, rstack['R_net'], rtol, atol, lbl_s + 'R_net'
-        yield assert_ac, stack.T_net, rstack['T_net'], rtol, atol, lbl_s + 'T_net'
+            assert_ac(lay.R12, rlay["R12"], rtol_mats, atol_mats, lbl_l + "R12")
+            assert_ac(lay.T12, rlay["T12"], rtol_mats, atol_mats, lbl_l + "T12")
+            assert_ac(lay.R21, rlay["R21"], rtol_mats, atol_mats, lbl_l + "R21")
+            assert_ac(lay.T21, rlay["T21"], rtol_mats, atol_mats, lbl_l + "T21")
+            assert_ac(lay.k_z, rlay["k_z"], rtol_mats, atol_mats, lbl_l + "k_z")
+            # TODO: yield assert_ac, lay.sol1, rlay['sol1']
+        assert_ac(stack.R_net, rstack["R_net"], rtol, atol, lbl_s + "R_net")
+        assert_ac(stack.T_net, rstack["T_net"], rtol, atol, lbl_s + "T_net")
 
 
 plotting.clear_previous()

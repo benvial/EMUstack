@@ -232,27 +232,27 @@ class Stack(object):
             if self.shears == None:
                 to_invert = (I_air - r12_list[i]*rnet)
                 inverted_t21 = np.linalg.solve(to_invert, t21_list[i])
-                tnet = tnet*inverted_t21
-                rnet = r21_list[i] + t12_list[i]*rnet*inverted_t21
+                tnet = tnet@inverted_t21
+                rnet = r21_list[i] + t12_list[i]@rnet@inverted_t21
             else:
                 coord_diff = np.asarray(self.shears[i-1]) - np.asarray(self.shears[i])
                 Q = st1.shear_transform(coord_diff)
                 Q_inv = st1.shear_transform(-1*coord_diff)
-                to_invert = (I_air - r12_list[i]*Q_inv*rnet*Q)
+                to_invert = (I_air - r12_list[i]@Q_inv@rnet@Q)
                 inverted_t21 = np.linalg.solve(to_invert,t21_list[i])
-                tnet = tnet*Q*inverted_t21
-                rnet = r21_list[i] + t12_list[i]*Q_inv*rnet*Q*inverted_t21
+                tnet = tnet@Q@inverted_t21
+                rnet = r21_list[i] + t12_list[i]@Q_inv@rnet@Q@inverted_t21
             inv_t21_list.append(inverted_t21)
             tnet_list.append(tnet)
             rnet_list.append(rnet)
     # through layer
             P = lay.prop_fwd(self.heights_nm()[i-1]/self.period)
             I_TF = np.array(np.eye(len(P)), dtype='D')
-            to_invert = (I_TF - r21_list[i]*P*rnet*P)
+            to_invert = (I_TF - r21_list[i]@P@rnet@P)
             inverted_t12 = np.linalg.solve(to_invert, t12_list[i])
-            P_inverted_t12 = P*inverted_t12
-            tnet = tnet*P_inverted_t12
-            rnet = r12_list[i] + t21_list[i]*P*rnet*P_inverted_t12
+            P_inverted_t12 = P@inverted_t12
+            tnet = tnet@P_inverted_t12
+            rnet = r12_list[i] + t21_list[i]@P@rnet@P_inverted_t12
 
             P_list.append(P)
             inv_t12_list.append(inverted_t12)
@@ -261,18 +261,18 @@ class Stack(object):
 
     # into top semi-infinite medium
         if self.shears == None:
-            to_invert = (I_air - r12_list[-1]*rnet)
+            to_invert = (I_air - r12_list[-1]@rnet)
             inverted_t21 = np.linalg.solve(to_invert,t21_list[-1])
-            tnet = tnet*inverted_t21
-            rnet = r21_list[-1] + t12_list[-1]*rnet*inverted_t21
+            tnet = tnet@inverted_t21
+            rnet = r21_list[-1] + t12_list[-1]@rnet@inverted_t21
         else:
             coord_diff = np.asarray(self.shears[-1])
             Q = st1.shear_transform(coord_diff)
             Q_inv = st1.shear_transform(-1*coord_diff)
-            to_invert = (I_air - r12_list[-1]*Q_inv*rnet*Q)
+            to_invert = (I_air - r12_list[-1]@Q_inv@rnet@Q)
             inverted_t21 = np.linalg.solve(to_invert,t21_list[-1])
-            tnet = tnet*Q*inverted_t21
-            rnet = r21_list[-1] + t12_list[-1]*Q_inv*rnet*Q*inverted_t21
+            tnet = tnet@Q@inverted_t21
+            rnet = r21_list[-1] + t12_list[-1]@Q_inv@rnet@Q@inverted_t21
         inv_t21_list.append(inverted_t21)
         tnet_list.append(tnet)
         rnet_list.append(rnet)
@@ -333,7 +333,7 @@ class Stack(object):
             down_fluxes.append(flux_TE + flux_TM)
 
         # up into semi-inf off top air gap
-            d_plus = rnet_list[-1]*d_minus
+            d_plus = rnet_list[-1]@d_minus
             self.vec_coef_down.append(d_minus)
             self.vec_coef_up.append(d_plus)
         # total reflected flux
@@ -342,26 +342,26 @@ class Stack(object):
             up_flux.append(flux_TE + flux_TM)
 
         # incoming from semi-inf into top air gap
-            f1_minus = inv_t21_list[-1]*d_minus
+            f1_minus = inv_t21_list[-1]@d_minus
 
             for i in range(len(self.layers) - 2):
-                f1_plus = rnet_list[-2*i-2]*f1_minus
+                f1_plus = rnet_list[-2*i-2]@f1_minus
         # net downward flux in infinitesimal air layer
                 f_mat = np.array(np.concatenate((f1_minus, f1_plus)))
-                flux = f_mat.T.conj()*U_mat*f_mat
+                flux = f_mat.T.conj()@U_mat@f_mat
                 down_fluxes.append(flux)
 
-                f2_minus = inv_t12_list[-i-1]*f1_minus
-                f2_plus = rnet_list[-2*i-3]*P_list[-i-1]*f2_minus
+                f2_minus = inv_t12_list[-i-1]@f1_minus
+                f2_plus = rnet_list[-2*i-3]@P_list[-i-1]@f2_minus
                 self.vec_coef_down.append(f2_minus)
                 self.vec_coef_up.append(f2_plus)
 
-                f1_minus = inv_t21_list[-i-2]*P_list[-i-1]*f2_minus
+                f1_minus = inv_t21_list[-i-2]@P_list[-i-1]@f2_minus
 
         # bottom air to semi-inf substrate
-            f1_plus = rnet_list[0]*f1_minus
+            f1_plus = rnet_list[0]@f1_minus
 
-            f2_minus = tnet_list[0]*f1_minus
+            f2_minus = tnet_list[0]@f1_minus
             self.vec_coef_down.append(f2_minus)
             # self.trans_vector = f2_minus
         # can only calculate the energy flux in homogeneous films

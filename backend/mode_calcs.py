@@ -75,16 +75,16 @@ class Modes(object):
 
     def prop_fwd(self, height_norm):
         """ Return the matrix P corresponding to forward propagation/decay. """
-        return np.mat(np.diag(np.exp(1j * self.k_z * height_norm)))
+        return np.array(np.diag(np.exp(1j * self.k_z * height_norm)))
 
     def shear_transform(self, coords):
         """ Return the matrix Q corresponding to a shear transformation to coordinats coords. """
         alphas = np.append(self.air_ref().alphas, self.air_ref().alphas)
         if np.shape(coords) == (1,):
-            return np.mat(np.diag(np.exp(1j * (alphas * coords[0]))))
+            return np.array(np.diag(np.exp(1j * (alphas * coords[0]))))
         else:
             betas = np.append(self.air_ref().betas, self.air_ref().betas)
-            return np.mat(np.diag(np.exp(1j * (alphas * coords[0] + betas * coords[1]))))
+            return np.array(np.diag(np.exp(1j * (alphas * coords[0] + betas * coords[1]))))
 
     def __del__(self):
         # Clean up _interfaces_i_have_known to avoid memory leak
@@ -229,7 +229,7 @@ class Anallo(Modes):
         spec_TM = self.specular_order + self.structure.num_pw_per_pol
         tot_num_pw = self.structure.num_pw_per_pol * 2
 
-        inc_amp = np.mat(np.zeros(tot_num_pw, dtype='complex128')).T
+        inc_amp = np.array(np.zeros(tot_num_pw, dtype='complex128')).T
         if 'TE' == pol:
             inc_amp[spec_TE] = 1
         elif 'TM' == pol:
@@ -344,9 +344,9 @@ class Simmo(Modes):
                 self.k_z, J, J_dag, J_2d, J_dag_2d, self.sol1 = resm
 
                 if self.structure.world_1d is True:
-                    self.J, self.J_dag = np.mat(J), np.mat(J_dag)
+                    self.J, self.J_dag = np.array(J), np.array(J_dag)
                 else:
-                    self.J, self.J_dag = np.mat(J_2d), np.mat(J_dag_2d)
+                    self.J, self.J_dag = np.array(J_2d), np.array(J_dag_2d)
                 J_2d = None
                 J_dag_2d = None
 
@@ -379,11 +379,11 @@ class Simmo(Modes):
 
                 self.k_z, J, J_dag, self.sol1, self.mode_pol, \
                 self.table_nod, self.type_el, self.x_arr = resm
-                # self.J, self.J_dag = np.mat(J), np.mat(J_dag)
+                # self.J, self.J_dag = np.array(J), np.array(J_dag)
 
                 area = self.structure.period * self.structure.period_y
                 area_norm = area/self.structure.period**2
-                self.J, self.J_dag = np.mat(J)/area_norm, np.mat(J_dag)
+                self.J, self.J_dag = np.array(J)/area_norm, np.array(J_dag)
 
             except KeyboardInterrupt:
                 print("\n\n2D FEM routine calc_modes_2d",\
@@ -463,14 +463,14 @@ def r_t_mat_anallo(an1, an2):
     Z1 = an1.Z()
     Z2 = an2.Z()
 
-    R12 = np.mat(np.diag((Z2 - Z1)/(Z2 + Z1)))
+    R12 = np.array(np.diag((Z2 - Z1)/(Z2 + Z1)))
     # N.B. there is potentially a branch choice problem here, stemming
     # from the normalisation to unit flux.
     # We normalise each field amplitude by
     # $chi^{\pm 1/2} = sqrt(k_z/k)^{\pm 1} = sqrt(Z/Zc)^{\pm 1}$
     # The choice of branch in those square roots must be the same as the
     # choice in the related square roots that we are about to take:
-    T12 = np.mat(np.diag(2.*np.sqrt(Z2)*np.sqrt(Z1)/(Z2+Z1)))
+    T12 = np.array(np.diag(2.*np.sqrt(Z2)*np.sqrt(Z1)/(Z2+Z1)))
     R21 = -R12
     T21 = T12
 
@@ -491,25 +491,25 @@ def r_t_mat_tf_ns(an1, sim2):
 
     # In the paper, X is a diagonal matrix. Here it is a 1 x N array.
     # Same difference.
-    if np.shape(Z1_sqrt_inv)[1] != np.shape(sim2.J.A)[0]:
+    if np.shape(Z1_sqrt_inv)[1] != np.shape(sim2.J)[0]:
         raise ValueError("Scattering matrices of layers are not consistent,\
             \nsome layers are 1D and others 2D. Check that world_1d status.")
 
-    A = np.mat(Z1_sqrt_inv.T * sim2.J.A)
-    B = np.mat(sim2.J_dag.A * Z1_sqrt_inv)
+    A = np.array(Z1_sqrt_inv.T * sim2.J)
+    B = np.array(sim2.J_dag *Z1_sqrt_inv)
 
     denominator = np.eye(len(B)) + B.dot(A)
 
     # R12 = -I + 2 A (I + BA)^-1 B
     # T12 = 2 (I + BA)^-1 B
     den_inv_times_B = np.linalg.solve(denominator, B)
-    R12 = -np.eye(len(A)) + 2 * A * den_inv_times_B
+    R12 = -np.eye(len(A)) + 2 * A @ den_inv_times_B
     T12 = 2 * den_inv_times_B
 
     # R21 = (I - BA)(I + BA)^-1 = (I + BA)^-1 (I - BA)
     # T21 = 2 A (I + BA)^-1 = T12^T
-    R21 = np.linalg.solve(denominator, (np.eye(len(B)) - B*A))
-    T21 = 2 * A * denominator.I
+    R21 = np.linalg.solve(denominator, (np.eye(len(B)) - B@A))
+    T21 = 2 * A @ np.linalg.inv(denominator)
     # T21 = T12.T
 
-    return np.mat(R12), np.mat(T12), np.mat(R21), np.mat(T21)
+    return np.array(R12), np.array(T12), np.array(R21), np.array(T21)

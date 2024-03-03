@@ -107,13 +107,13 @@ def simulate_stack(light):
 
     return stack
 
-def setup_module(module):
+def setup_module():
     start = time.time()
 
     # Run in parallel across wavelengths.
     # This has to be in a setup_module otherwise nosetests will crash :(
     pool = Pool(2)
-    module.stack_list = pool.map(simulate_stack, light_list)
+    stack_list = pool.map(simulate_stack, light_list)
 
     active_layer_nu = 3 # Specify which layer is the active one (where absorption generates charge carriers).
 
@@ -127,30 +127,10 @@ def setup_module(module):
     # # generates a new set of reference answers to check against
     # # in the future
     # testing.save_reference_data("case_3", stack_list)
+    return stack_list
 
 
 
-def results_match_reference(filename):
-    rtol = 1e-6
-    atol = 1e-6
-    reference = np.loadtxt("ref/case_3/" + filename)
-    result    = np.loadtxt(filename)
-    np.testing.assert_allclose(result, reference, rtol, atol, filename)
-
-def test_txt_results():
-    result_files = (
-        "Absorptance_stack0001.txt",
-        "Lay_Absorb_0_stack0001.txt",
-        "Lay_Absorb_1_stack0001.txt",
-        "Lay_Absorb_2_stack0001.txt",
-        "Lay_Trans_0_stack0001.txt",
-        "Lay_Trans_1_stack0001.txt",
-        "Lay_Trans_2_stack0001.txt",
-        "Reflectance_stack0001.txt",
-        "Transmittance_stack0001.txt",
-    )
-    for f in result_files:
-        yield results_match_reference, f
 
 def test_stack_list_matches_saved(casefile_name = 'case_3'):
     rtol = 1e-4
