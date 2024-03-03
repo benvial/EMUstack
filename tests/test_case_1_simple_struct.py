@@ -23,20 +23,23 @@ a dilute silicon nanowire array.
 Uses .mail file from repository (to avoid meshing discrepancies).
 """
 
-import time
 import datetime
-import numpy as np
 import sys
+import time
 from multiprocessing import Pool
+
+import numpy as np
+
 sys.path.append("../backend/")
 
-import objects
 import materials
+import objects
 import plotting
-from stack import *
-import testing
 from numpy.testing import assert_allclose as assert_ac
 from numpy.testing import assert_equal
+from stack import *
+
+import testing
 
 # Remove results of previous simulations
 plotting.clear_previous()
@@ -45,9 +48,9 @@ plotting.clear_previous()
 
 # Set up light objects
 wavelengths = np.array([500, 1000])
-light_list  = [objects.Light(wl, max_order_PWs = 2, theta = 0.0, phi = 0.0) \
-    for wl in wavelengths]
-
+light_list = [
+    objects.Light(wl, max_order_PWs=2, theta=0.0, phi=0.0) for wl in wavelengths
+]
 
 
 ################ Scattering matrices (for distinct layers) ##############
@@ -57,29 +60,39 @@ structure which is defined later
 """
 
 # period must be consistent throughout simulation!!!
-period  = 600
+period = 600
 
 NW_diameter = 120
 num_BMs = 40
-NW_array = objects.NanoStruct('2D_array', period, NW_diameter, height_nm = 2330,
-    inclusion_a = materials.Si_c, background = materials.Air,
-    loss = True, make_mesh_now = False, mesh_file='4testing-600_120.mail')
+NW_array = objects.NanoStruct(
+    "2D_array",
+    period,
+    NW_diameter,
+    height_nm=2330,
+    inclusion_a=materials.Si_c,
+    background=materials.Air,
+    loss=True,
+    make_mesh_now=False,
+    mesh_file="4testing-600_120.mail",
+)
 
-superstrate  = objects.ThinFilm(period = period, height_nm = 'semi_inf',
-    material = materials.Air, loss = False)
+superstrate = objects.ThinFilm(
+    period=period, height_nm="semi_inf", material=materials.Air, loss=False
+)
 
-substrate = objects.ThinFilm(period = period, height_nm = 'semi_inf',
-    material = materials.SiO2, loss = False)
-
-
+substrate = objects.ThinFilm(
+    period=period, height_nm="semi_inf", material=materials.SiO2, loss=False
+)
 
 
 stack_list = []
+
+
 def simulate_stack(light):
 
     ################ Evaluate each layer individually ##############
     sim_superstrate = superstrate.calc_modes(light)
-    sim_NW_array = NW_array.calc_modes(light, num_BMs = num_BMs)
+    sim_NW_array = NW_array.calc_modes(light, num_BMs=num_BMs)
     sim_substrate = substrate.calc_modes(light)
 
     ################ Evaluate full solar cell structure ##############
@@ -87,9 +100,10 @@ def simulate_stack(light):
     stack list MUST be ordered from bottom to top!
     """
     stack = Stack((sim_substrate, sim_NW_array, sim_superstrate))
-    stack.calc_scat(pol = 'TE')
+    stack.calc_scat(pol="TE")
 
     return stack
+
 
 def setup_module(module):
     start = time.time()
@@ -101,7 +115,6 @@ def setup_module(module):
 
     plotting.t_r_a_plots(stack_list, save_txt=True)
 
-
     # # SAVE DATA AS REFERENCE
     # # Only run this after changing what is simulated - this
     # # generates a new set of reference answers to check against
@@ -109,13 +122,13 @@ def setup_module(module):
     # testing.save_reference_data("case_1", stack_list)
 
 
-
 def results_match_reference(filename):
     rtol = 1e-6
     atol = 1e-6
     reference = np.loadtxt("ref/case_1/" + filename)
-    result    = np.loadtxt(filename)
+    result = np.loadtxt(filename)
     np.testing.assert_allclose(result, reference, rtol, atol, filename)
+
 
 def test_txt_results():
     result_files = (
@@ -124,9 +137,10 @@ def test_txt_results():
         "Lay_Trans_0_stack0001.txt",
         "Reflectance_stack0001.txt",
         "Transmittance_stack0001.txt",
-        )
+    )
     for f in result_files:
         results_match_reference, f
+
 
 # def test_stack_list_matches_saved(casefile_name = 'case_1', stack_list = stack_list):
 #     rtol = 1e-4
