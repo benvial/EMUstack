@@ -1,0 +1,13 @@
+name: emustack
+channels:
+  - conda-forge
+dependencies:
+  - python>3.7, <3.12 # to use distutils backend
+  - pip
+  - numpy
+  - suitesparse
+  - metis
+  - compilers
+  - openblas # ?
+  - scipy
+  - matplotlib

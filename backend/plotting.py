@@ -23,7 +23,7 @@ import objects
 import mode_calcs
 
 import numpy as np
-from scipy import sqrt
+from numpy import sqrt
 import subprocess
 import matplotlib
 matplotlib.use('pdf')

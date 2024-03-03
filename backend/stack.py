@@ -214,7 +214,7 @@ class Stack(object):
         PW_pols = np.shape(R12)[0]
         neq_PW = int(PW_pols/2.0)
         PW_pols = int(PW_pols)
-        I_air = np.matrix(np.eye(PW_pols), dtype='D')
+        I_air = np.array(np.eye(PW_pols))
 
     # initiate (r)tnet as top interface of substrate
         tnet_list = []
@@ -247,7 +247,7 @@ class Stack(object):
             rnet_list.append(rnet)
     # through layer
             P = lay.prop_fwd(self.heights_nm()[i-1]/self.period)
-            I_TF = np.matrix(np.eye(len(P)), dtype='D')
+            I_TF = np.array(np.eye(len(P)), dtype='D')
             to_invert = (I_TF - r21_list[i]*P*rnet*P)
             inverted_t12 = np.linalg.solve(to_invert, t12_list[i])
             P_inverted_t12 = P*inverted_t12
@@ -308,7 +308,7 @@ class Stack(object):
         # It is a diagonal matrix with 1 for propagating, i for evanescent TE
         # & -i for evanescent TM plane wave orders.
 
-            U_mat = np.matrix(np.zeros((2*PW_pols, 2*PW_pols),complex))
+            U_mat = np.array(np.zeros((2*PW_pols, 2*PW_pols),complex))
             for i in range(0, num_prop_air):
                 U_mat[i, i] = 1.0
                 U_mat[neq_PW+i, neq_PW+i] = 1.0
@@ -347,8 +347,8 @@ class Stack(object):
             for i in range(len(self.layers) - 2):
                 f1_plus = rnet_list[-2*i-2]*f1_minus
         # net downward flux in infinitesimal air layer
-                f_mat = np.matrix(np.concatenate((f1_minus, f1_plus)))
-                flux = f_mat.H*U_mat*f_mat
+                f_mat = np.array(np.concatenate((f1_minus, f1_plus)))
+                flux = f_mat.T.conj()*U_mat*f_mat
                 down_fluxes.append(flux)
 
                 f2_minus = inv_t12_list[-i-1]*f1_minus
