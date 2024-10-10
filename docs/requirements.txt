@@ -1,6 +1,0 @@
-MarkupSafe
-Sphinx
-pydata-sphinx-theme
-sphinx_gallery
-sphinx_copybutton
-memory_profiler

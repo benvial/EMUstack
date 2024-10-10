@@ -152,3 +152,4 @@ def test_stack_list_matches_saved():
     rtol = 1e-6
     atol = 1e-6
     testing.check_results_simu_npz(case, rtol, atol, stack_list)
+    plotting.plt.close("all")

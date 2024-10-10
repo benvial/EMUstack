@@ -29,7 +29,6 @@ import time
 from multiprocessing import Pool
 
 import numpy as np
-import testing
 
 from emustack import materials, objects, plotting
 from emustack.stack import *

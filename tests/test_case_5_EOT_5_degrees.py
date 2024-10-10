@@ -29,8 +29,8 @@ import testing
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-# Remove results of previous simulations
-plotting.clear_previous()
+# # Remove results of previous simulations
+# plotting.clear_previous()
 
 
 def run_simulation():
@@ -138,3 +138,7 @@ def test_stack_list_matches_saved():
     rtol = 1e-3
     atol = 1e-3
     testing.check_results_simu_npz(case, rtol, atol, stack_list)
+    plotting.plt.close("all")
+
+if __name__ == "__main__":
+    test_stack_list_matches_saved()

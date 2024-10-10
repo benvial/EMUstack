@@ -1,4 +1,0 @@
-include *.txt
-recursive-include emustack/data *
-recursive-include emustack/fortran *.so
-recursive-include emustack/fortran/msh *

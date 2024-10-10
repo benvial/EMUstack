@@ -27,9 +27,6 @@ import sys
 import numpy as np
 
 from . import paths
-
-sys.path.append(paths.backend_path)
-
 from .fortran import EMUstack
 
 _interfaces_i_have_known = {}

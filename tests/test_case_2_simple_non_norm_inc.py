@@ -112,3 +112,7 @@ def test_stack_list_matches_saved():
     rtol = 1e-2
     atol = 1.5e-1
     testing.check_results_simu_npz(case, rtol, atol, stack_list)
+    plotting.plt.close("all")
+
+if __name__ == "__main__":
+    test_stack_list_matches_saved()

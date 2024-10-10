@@ -26,9 +26,14 @@ import os
 
 import numpy as np
 
+import random
+import matplotlib
+import matplotlib.pyplot as plt
+
 from . import materials, paths
 from .fortran import EMUstack
 from .mode_calcs import Anallo, Simmo
+
 
 msh_location = paths.msh_path
 template_location = paths.template_path
@@ -480,7 +485,6 @@ class NanoStruct(object):
                 #     self.mesh_file = msh_name + '.mail'
                 # msh_name = 'design-last_17'
                 if self.ff_rand is True:
-                    import random
 
                     ff_tol = 0.0001
                     min_a = 50
@@ -1907,8 +1911,7 @@ class NanoStruct(object):
             self.mesh_file = msh_name
 
             if self.plt_msh is True:
-                import matplotlib
-                import matplotlib.pyplot as plt
+
 
                 fig = plt.figure()
                 ax1 = fig.add_subplot(1, 1, 1)

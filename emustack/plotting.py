@@ -29,7 +29,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy import sqrt
 
+from matplotlib.ticker import FormatStrFormatter, MultipleLocator
+
 from . import mode_calcs, objects, paths
+from .fortran import EMUstack
+
 
 Irrad_spec_file = os.path.join(paths.data_path, "ASTMG173")
 
@@ -2219,7 +2223,6 @@ def fields_in_plane(
             nu_calc_pts  (int): fields are calculated over a mesh of
                 nu_calc_pts * nu_calc_pts points.
     """
-    from fortran import EMUstack
 
     dir_name = "in_plane_fields"
     if not os.path.exists(dir_name):
@@ -2609,7 +2612,6 @@ def fields_interpolator_in_plane(pstack, lay_interest=1, z_value=0.1):
                 then z_value is distance from top of this layer (i.e. bottom
                 interface of stack).
     """
-    from fortran import EMUstack
 
     num_lays = len(pstack.layers)
     # If selected z location is within a NanoStruct layer
@@ -2817,8 +2819,6 @@ def fields_vertically(
 
             plot_boundaries  (bool): plot boundaries of inclusions.
     """
-
-    from fortran import EMUstack
 
     dir_name = "fields_vertically"
     if not os.path.exists(dir_name):
@@ -4052,9 +4052,6 @@ def fields_3d(stacks_list, lay_interest=1):
             lay_interest  (int): the index of the layer considered within
             the stack.
     """
-    import subprocess
-
-    from fortran import EMUstack
 
     nnodes = 6
     dir_name = "3d_fields"
@@ -4424,7 +4421,6 @@ def Fabry_Perot_res(
     ax1 = fig.add_subplot(1, 1, 1)
     cax = ax1.imshow(image, cmap=plt.cm.gray_r, interpolation="none")
 
-    from matplotlib.ticker import FormatStrFormatter, MultipleLocator
 
     shape = np.shape(plot_mat)
     majorLocator = MultipleLocator(shape[1] - 1)

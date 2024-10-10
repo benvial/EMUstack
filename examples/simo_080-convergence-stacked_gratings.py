@@ -39,13 +39,13 @@ start = time.time()
 # Number of CPUs to use in simulation
 num_cores = 1
 
-# Remove results of previous simulations
-plotting.clear_previous()
+# # Remove results of previous simulations
+# plotting.clear_previous()
 
 ################ Light parameters #####################
 wavelengths = np.linspace(1600, 900, 1)
 
-BMs = [11, 27, 59, 99, 163, 227, 299, 395, 507, 635, 755, 883, 1059, 1227, 1419]
+BMs = [1419]#[11, 27, 59, 99, 163, 227, 299, 395, 507, 635, 755, 883, 1059, 1227, 1419]
 B = 0
 
 for PWs in np.linspace(1, 10, 10):
@@ -63,6 +63,7 @@ for PWs in np.linspace(1, 10, 10):
     substrate = objects.ThinFilm(
         period, height_nm="semi_inf", material=materials.Air, world_1d=True, loss=False
     )
+    lc_bkg = 0.01
 
     grating_1 = objects.NanoStruct(
         "1D_array",
@@ -77,7 +78,7 @@ for PWs in np.linspace(1, 10, 10):
         loss=True,
         make_mesh_now=True,
         force_mesh=True,
-        lc_bkg=0.1,
+        lc_bkg=lc_bkg,
         lc2=3.0,
     )
 
@@ -91,7 +92,7 @@ for PWs in np.linspace(1, 10, 10):
         loss=True,
         make_mesh_now=True,
         force_mesh=True,
-        lc_bkg=0.1,
+        lc_bkg=lc_bkg,
         lc2=3.0,
     )
 
@@ -119,8 +120,8 @@ for PWs in np.linspace(1, 10, 10):
     # Run in parallel across wavelengths.
     pool = Pool(num_cores)
     stacks_list = pool.map(simulate_stack, light_list)
-    # Save full simo data to .npz file for safe keeping!
-    np.savez("Simo_results", stacks_list=stacks_list)
+    # # Save full simo data to .npz file for safe keeping!
+    # np.savez("Simo_results", stacks_list=stacks_list)
 
     additional_name = str(int(PWs))
     plotting.t_r_a_plots(stacks_list, add_name=additional_name)

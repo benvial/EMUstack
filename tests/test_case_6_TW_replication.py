@@ -40,8 +40,8 @@ num_cores = 1
 # leave_cpus = 4
 # num_cores = mp.cpu_count() - leave_cpus
 
-# Remove results of previous simulations
-plotting.clear_previous()
+# # Remove results of previous simulations
+# plotting.clear_previous()
 
 ################ Light parameters #####################
 # wl_1     = 900
@@ -174,6 +174,10 @@ def test_stack_list_matches_saved():
     rtol = 1e-1
     atol = 1e-1
     testing.check_results_simu_npz(case, rtol, atol, stack_list)
+    plotting.plt.close("all")
 
 
-plotting.clear_previous()
+# plotting.clear_previous()
+
+if __name__ == "__main__":
+    test_stack_list_matches_saved()

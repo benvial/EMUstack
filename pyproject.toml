@@ -6,9 +6,9 @@ requires = ['meson-python', 'meson >= 0.64.0', "numpy >=1.20"]
 name = 'emustack'
 version = '0.9.2'
 description = "Light propagation through multi-layered stacks of dispersive, lossy, nanostructured, optical media"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.9"
-license = { file = "LICENSE.txt" }
+license = { file = "LICENSE" }
 keywords = ["photonics"]
 authors = [ { name = "Björn Sturmberg" }]
 classifiers = [
@@ -37,3 +37,27 @@ dependencies = [
 ]
 [tool.setuptools]
 packages = ["emustack"]
+
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-cov",
+  "pytest-datadir",
+  "pytest-sugar",
+  "pytest-xdist[psutil]",
+  "coverage",
+]
+doc = [
+    "MarkupSafe",
+    "Sphinx",
+    "pydata-sphinx-theme",
+    "sphinx-gallery",
+    "sphinx-copybutton",
+    "memory_profiler",
+]
+all = ["emustack[test,doc]"]
+
+
+[tool.pytest.ini_options]
+addopts = "--cov=emustack --cov-report html --cov-report term"

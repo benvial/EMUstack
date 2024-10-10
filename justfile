@@ -9,9 +9,8 @@ test:
 fortran:
     cd emustack/fortran && make clean && make
 
-
 clean:
-    rm -rf .coverage *.egg-info build .pytest_cache
+	rm -rf builddir .coverage *.egg-info docs/build .pytest_cache
 
 clean-fortran:
     cd emustack/fortran && make purge
@@ -19,9 +18,7 @@ clean-fortran:
 test-import:
     python -c "from emustack.stack import *"
 
-    
-
-all-fortran: set bld test-fortran
+meson: set bld test-fortran
 
 set:
     meson setup --wipe builddir

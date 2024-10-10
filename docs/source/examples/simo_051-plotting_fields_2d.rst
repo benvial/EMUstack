@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_examples_simo_051-plotting_fields_2d.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -23,7 +23,7 @@ Plotting fields for 2d arrays
 
 Show how to plot electric fields.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-106
+.. GENERATED FROM PYTHON SOURCE LINES 25-105
 
 .. code-block:: Python
 
@@ -34,7 +34,6 @@ Show how to plot electric fields.
     from multiprocessing import Pool
 
     import numpy as np
-    import testing
 
     from emustack import materials, objects, plotting
     from emustack.stack import *
@@ -110,19 +109,12 @@ Show how to plot electric fields.
 
 
 
-.. rst-class:: sphx-glr-script-out
-
-.. code-block:: pytb
-
-    Traceback (most recent call last):
-      File "/home/bench/dev/phokaia/contrib/EMUstack/examples/simo_051-plotting_fields_2d.py", line 32, in <module>
-        import testing
-    ModuleNotFoundError: No module named 'testing'
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-131
+
+.. GENERATED FROM PYTHON SOURCE LINES 106-130
 
 .. code-block:: Python
 
@@ -151,11 +143,76 @@ Show how to plot electric fields.
     )
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 132-133
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image-sg:: /examples/images/sphx_glr_simo_051-plotting_fields_2d_001.png
+         :alt: simo 051 plotting fields 2d
+         :srcset: /examples/images/sphx_glr_simo_051-plotting_fields_2d_001.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /examples/images/sphx_glr_simo_051-plotting_fields_2d_002.png
+         :alt: simo 051 plotting fields 2d
+         :srcset: /examples/images/sphx_glr_simo_051-plotting_fields_2d_002.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /examples/images/sphx_glr_simo_051-plotting_fields_2d_003.png
+         :alt: simo 051 plotting fields 2d
+         :srcset: /examples/images/sphx_glr_simo_051-plotting_fields_2d_003.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /examples/images/sphx_glr_simo_051-plotting_fields_2d_004.png
+         :alt: simo 051 plotting fields 2d
+         :srcset: /examples/images/sphx_glr_simo_051-plotting_fields_2d_004.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /examples/images/sphx_glr_simo_051-plotting_fields_2d_005.png
+         :alt: simo 051 plotting fields 2d
+         :srcset: /examples/images/sphx_glr_simo_051-plotting_fields_2d_005.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /examples/images/sphx_glr_simo_051-plotting_fields_2d_006.png
+         :alt: simo 051 plotting fields 2d
+         :srcset: /examples/images/sphx_glr_simo_051-plotting_fields_2d_006.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /examples/images/sphx_glr_simo_051-plotting_fields_2d_007.png
+         :alt: simo 051 plotting fields 2d
+         :srcset: /examples/images/sphx_glr_simo_051-plotting_fields_2d_007.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /examples/images/sphx_glr_simo_051-plotting_fields_2d_008.png
+         :alt: simo 051 plotting fields 2d
+         :srcset: /examples/images/sphx_glr_simo_051-plotting_fields_2d_008.png
+         :class: sphx-glr-multi-img
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 131-132
 
 Calculate and record the (real) time taken for simulation
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-151
+.. GENERATED FROM PYTHON SOURCE LINES 132-150
 
 .. code-block:: Python
 
@@ -179,11 +236,26 @@ Calculate and record the (real) time taken for simulation
     print("")
 
 
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    Total time for simulation was 
+         0:00:05.157798 (       5.158 seconds)
+    *******************************************
+
+
+
+
+
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.015 seconds)
+   **Total running time of the script:** (0 minutes 5.338 seconds)
 
-**Estimated memory usage:**  207 MB
+**Estimated memory usage:**  242 MB
 
 
 .. _sphx_glr_download_examples_simo_051-plotting_fields_2d.py:
@@ -199,6 +271,10 @@ Calculate and record the (real) time taken for simulation
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: simo_051-plotting_fields_2d.py <simo_051-plotting_fields_2d.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: simo_051-plotting_fields_2d.zip <simo_051-plotting_fields_2d.zip>`
 
 
 .. only:: html

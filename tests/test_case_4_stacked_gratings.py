@@ -30,8 +30,8 @@ from emustack.stack import *
 
 
 def run_simulation():
-    # Remove results of previous simulations
-    plotting.clear_previous()
+    # # Remove results of previous simulations
+    # plotting.clear_previous()
 
     ################ Light parameters #####################
     wavelengths = np.linspace(800, 1600, 1)
@@ -125,6 +125,12 @@ def test_stack_list_matches_saved():
     rtol = 1e15
     atol = 1e-1
     testing.check_results_simu_npz(case, rtol, atol, stack_list)
+    plotting.plt.close("all")
 
 
-plotting.clear_previous()
+# plotting.clear_previous()
+
+
+
+if __name__ == "__main__":
+    test_stack_list_matches_saved()

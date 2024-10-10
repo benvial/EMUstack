@@ -5,17 +5,10 @@ subdir('lib')
 lflags = ['-lcholmod', '-lcolamd', '-lcamd', '-lmetis', '-lccolamd', '-lamd', 
   '-lsuitesparseconfig', '-lrt', '-llapack', '-lblas', '-lumfpack']
 
-#########
-# Compiler-specific options (for OpenMP and other optimizations)
-# Fortran compiler options
-openmp_flags = ['-fopenmp']
-c_flags = ['-fopenmp']
+# Compiler-specific options
 fortran_flags = ['-g', '-O3', '-fimplicit-none', '-fallow-argument-mismatch']
-# intel_fortran_flags = ['-openmp', '-O2', '/fpe:0', '/fp:fast=2']
 
-omp = dependency('openmp')
-dependencies = [py_dep,omp]
-# ss = dependency('suitesparse')
+dependencies = [py_dep]
 
 incdir_numpy = run_command(py,
   ['-c', 'import os; os.chdir(".."); import numpy; print(numpy.get_include())'],
@@ -65,8 +58,7 @@ py.extension_module('EMUstack',
   incdir_f2py / 'fortranobject.c',
   include_directories: inc_np,
   dependencies : dependencies,
-  fortran_args: fortran_flags + openmp_flags + lflags,
-  c_args: c_flags,
+  fortran_args: fortran_flags + lflags,
   install : true,
   link_with: libumf4_f77,
   subdir: 'emustack/fortran'
