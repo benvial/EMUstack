@@ -23,20 +23,12 @@ a dilute silicon nanowire array, at non-normal incidence.
 Uses .mail file from repository (to avoid meshing discrepancies).
 """
 
-import datetime
-import sys
-import time
 
 import numpy as np
-
-sys.path.append("../backend/")
-
-import materials
-import objects
-import plotting
-from stack import *
-
 import testing
+
+from emustack import materials, objects, plotting
+from emustack.stack import *
 
 
 def run_simulation():

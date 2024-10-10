@@ -1,0 +1,39 @@
+[build-system]
+build-backend = 'mesonpy'
+requires = ['meson-python', 'meson >= 0.64.0', "numpy >=1.20"]
+
+[project]
+name = 'emustack'
+version = '0.9.2'
+description = "Light propagation through multi-layered stacks of dispersive, lossy, nanostructured, optical media"
+readme = "README.rst"
+requires-python = ">=3.9"
+license = { file = "LICENSE.txt" }
+keywords = ["photonics"]
+authors = [ { name = "Björn Sturmberg" }]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Programming Language :: Python",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Utilities",
+]
+
+dependencies = [
+    "numpy >= 1.20",
+    "scipy >= 0.18.0",
+    "matplotlib",
+]
+[tool.setuptools]
+packages = ["emustack"]

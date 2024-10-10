@@ -23,21 +23,11 @@ a dilute InP nanowire array.
 Tests the creation of new .mail file via Gmsh.
 """
 
-import datetime
-import sys
-import time
-from multiprocessing import Pool
-
 import numpy as np
-
-sys.path.append("../backend/")
-
-import materials
-import objects
-import plotting
-from stack import *
-
 import testing
+
+from emustack import materials, objects, plotting
+from emustack.stack import *
 
 
 def run_simulation():
@@ -86,7 +76,10 @@ def run_simulation():
     stack.calc_scat(pol="TE")
     stack_list = [stack]
 
+    
+
     plotting.t_r_a_write_files(stack_list, wavelengths)
+    
     return stack_list
 
     # # SAVE DATA AS REFERENCE
@@ -96,7 +89,7 @@ def run_simulation():
     # testing.save_reference_data("case_3", stack_list)
 
 
-case =3
+case = 3
 result_files = (
     "Absorptance_stack0001.txt",
     "Lay_Absorb_0_stack0001.txt",

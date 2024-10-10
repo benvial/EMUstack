@@ -1,3 +1,6 @@
-MarkupSafe==0.15
-Sphinx==1.2.2
-sphinxcontrib-napoleon==0.2.8
+MarkupSafe
+Sphinx
+pydata-sphinx-theme
+sphinx_gallery
+sphinx_copybutton
+memory_profiler

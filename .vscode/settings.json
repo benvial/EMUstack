@@ -1,0 +1,4 @@
+{
+    "C_Cpp.default.compileCommands": "/home/bench/dev/oslumen/contrib/EMUstack/emustack/fortran/builddir/compile_commands.json",
+    "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild"
+}

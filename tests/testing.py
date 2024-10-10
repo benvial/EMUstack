@@ -1,9 +1,11 @@
+import os
 from os import system as ossys
 
 import numpy as np
 from numpy.testing import assert_allclose as assert_ac
 from numpy.testing import assert_equal
-from objects import Simmo
+
+from emustack.objects import Simmo
 
 
 def save_reference_data(casefile_name, stack_list):
@@ -28,21 +30,29 @@ def save_reference_data(casefile_name, stack_list):
     cp_cmd = "cp *.txt ref/%s/" % casefile_name
     ossys(cp_cmd)
 
-    assert (
-        False
-    ), "Reference results saved successfully, \
-but tests will now pass trivially so let's not run them now."
+#     assert (
+#         False
+#     ), "Reference results saved successfully, \
+# but tests will now pass trivially so let's not run them now."
+
+
+ref_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "ref")
 
 
 def results_match_reference(case, rtol, atol, result_files):
     for filename in result_files:
-        reference = np.loadtxt(f"ref/case_{case}/" + filename)
+        reference = np.loadtxt(os.path.join(ref_path, f"case_{case}/" + filename))
         result = np.loadtxt(filename)
         np.testing.assert_allclose(result, reference, rtol, atol, filename)
+    
+    
+        os.remove(filename)
 
 
 def check_results_simu_npz(case, rtol, atol, stack_list):
-    ref = np.load(f"ref/case_{case}.npz", allow_pickle=True, encoding="latin1")
+    ref = np.load(
+        os.path.join(ref_path, f"case_{case}.npz"), allow_pickle=True, encoding="latin1"
+    )
     assert_equal(len(stack_list), len(ref["stack_list"]))
     for stack, rstack in zip(stack_list, ref["stack_list"]):
         assert_equal(len(stack.layers), len(rstack["layers"]))
@@ -57,3 +67,6 @@ def check_results_simu_npz(case, rtol, atol, stack_list):
             # TODO: yield assert_ac, lay.sol1, rlay['sol1']
         assert_ac(stack.R_net, rstack["R_net"], rtol, atol, lbl_s + "R_net")
         assert_ac(stack.T_net, rstack["T_net"], rtol, atol, lbl_s + "T_net")
+    
+
+

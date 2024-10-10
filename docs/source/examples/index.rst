@@ -1,0 +1,204 @@
+:orphan:
+
+.. _examples-index:
+
+Examples
+========
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simulating an interface between 2 homogeneous, dispersive media. We use multiple CPUs.">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_011-single_interface-dispersive_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_011-single_interface-dispersive.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Single interface dispersive</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simulating an interface between 2 homogeneous, non-dispersive media.">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_010-single_interface_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_010-single_interface.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Single interface</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="EUMstack loves metal \m/ However, as we saw in the previous example the substrate layer must be...">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_021-thin_film_mirror_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_021-thin_film_mirror.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Metallic multilayer stack</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simulating a lamellar grating that is periodic in x only. For this simulation EMUstack uses the...">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_030-1D_grating_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_030-1D_grating.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Lamellar grating</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Combining 1D gratings and 2D arrays in the same stack.">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_041-combining_1D_and_2D_array_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_041-combining_1D_and_2D_array.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Combining 1D and 2D arrays</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simulating a stack of homogeneous, dispersive media.">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_020-thin_film_multilayered_stack_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_020-thin_film_multilayered_stack.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multilayered stack</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Increase complexity of grating to contain 2 inclusions that are interleaved.">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_031-1D_grating-2_inclusions_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_031-1D_grating-2_inclusions.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">1D grating</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simulating a nanowire array with period 600 nm and NW diameter 120 nm.">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_040-2D_array_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_040-2D_array.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Nanowire array</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simulating a lamellar grating that is periodic in x only. For this simulation EMUstack uses the...">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_032-1D_grating-3_inclusions_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_032-1D_grating-3_inclusions.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">1D grating with 3 inclusions</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/simo_011-single_interface-dispersive
+   /examples/simo_010-single_interface
+   /examples/simo_021-thin_film_mirror
+   /examples/simo_030-1D_grating
+   /examples/simo_041-combining_1D_and_2D_array
+   /examples/simo_020-thin_film_multilayered_stack
+   /examples/simo_031-1D_grating-2_inclusions
+   /examples/simo_040-2D_array
+   /examples/simo_032-1D_grating-3_inclusions
+
+
+.. only:: html
+
+  .. container:: sphx-glr-footer sphx-glr-footer-gallery
+
+    .. container:: sphx-glr-download sphx-glr-download-python
+
+      :download:`Download all examples in Python source code: examples_python.zip </examples/examples_python.zip>`
+
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download all examples in Jupyter notebooks: examples_jupyter.zip </examples/examples_jupyter.zip>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

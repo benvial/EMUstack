@@ -1,0 +1,39 @@
+
+
+Examples using ``emustack.plotting.vis_scat_mats``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simulating an interface between 2 homogeneous, non-dispersive media.">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_010-single_interface_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_010-single_interface.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Single interface</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_examples_simo_010-single_interface.py`
+
+.. raw:: html
+
+    </div>
+

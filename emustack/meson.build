@@ -1,0 +1,137 @@
+
+
+python_sources = files(['__init__.py', 'materials.py', '__about__.py', 'mode_calcs.py', 
+'objects.py', 'meson.build', 'plotting.py', 'stack.py', 'paths.py'])
+py.install_sources(
+  python_sources,
+  pure: false,
+  subdir: 'emustack'
+)
+
+mat_sources = files([
+    'data/ZnS.txt',
+    'data/ZnO.txt',
+    'data/Zn3P2.txt',
+    'data/TiO2_anatase.txt',
+    'data/TiO2.txt',
+    'data/Spiro_nk_Filipic.txt',
+    'data/Spiro.txt',
+    'data/Soda_lime_glass_nk_Pil.txt',
+    'data/SnO2.txt',
+    'data/SiON_Low.txt',
+    'data/SiON_High.txt',
+    'data/SiO2.txt',
+    'data/Si_c.txt',
+    'data/Si_a.txt',
+    'data/Si3N4.txt',
+    'data/Sb2S3_ANU2015.txt',
+    'data/Sb2S3_ANU2014.txt',
+    'data/Sb2S3.txt',
+    'data/rGO_2015.txt',
+    'data/Perovskite_Loper_E_u_080.txt',
+    'data/Perovskite_E_u_00.txt',
+    'data/Perovskite_b2b_nk.txt',
+    'data/MoO3.txt',
+    'data/MgF2.txt',
+    'data/Low_Fe_Glass_Pil.txt',
+    'data/ITO_anneal_Gen_Osc.txt',
+    'data/ITO.txt',
+    'data/InP.txt',
+    'data/InGaAs.txt',
+    'data/InAs.txt',
+    'data/H2O.txt',
+    'data/GO_2015.txt',
+    'data/GO_2014.txt',
+    'data/Ge_Doped.txt',
+    'data/Ge.txt',
+    'data/GaP.txt',
+    'data/GaN.txt',
+    'data/GaAs.txt',
+    'data/FTO_Wengerk5.txt',
+    'data/FTO_Wenger.txt',
+    'data/FeS2.txt',
+    'data/Cu_Palik.txt',
+    'data/CuO.txt',
+    'data/Cu_JC.txt',
+    'data/CH3NH3PbI3.txt',
+    'data/CdTe.txt',
+    'data/Au_Palik.txt',
+    'data/Au_JC.txt',
+    'data/ASTMG173.txt',
+    'data/AlN_PV.txt',
+    'data/AlN.txt',
+    'data/AlGaAs.txt',
+    'data/Al2O3_PV.txt',
+    'data/Al2O3.txt',
+    'data/Al.txt',
+    'data/Ag_Palik.txt',
+    'data/Ag_JC.txt',
+    'data/.msh',
+    'data/.mail',
+    'data/.log',
+]
+)
+
+
+py.install_sources(
+  mat_sources,
+  pure: false,
+  subdir: 'emustack/data'
+)
+
+msh_sources = files([
+'fortran/msh/940_0_940_0_266_sq.msh',
+'fortran/msh/940_0_940_0_266_sq.mail',
+'fortran/msh/940_0_940_0_266_sq.geo',
+'fortran/msh/500_0_500_0_120.msh',
+'fortran/msh/500_0_500_0_120.mail',
+'fortran/msh/500_0_500_0_120.geo',
+'fortran/msh/165_0_165_0_140_e_0_5714285714285714.msh',
+'fortran/msh/165_0_165_0_140_e_0_5714285714285714.mail',
+'fortran/msh/165_0_165_0_140_e_0_5714285714285714.geo',
+'fortran/msh/600_0_600_0_120.msh',
+'fortran/msh/600_0_600_0_120.mail',
+'fortran/msh/600_0_600_0_120.geo',
+'fortran/msh/SRR_msh_template.geo',
+'fortran/msh/square_shell_dimer1_msh_template.geo',
+'fortran/msh/square_dimer1_msh_template.geo',
+'fortran/msh/row_5_msh_template.geo',
+'fortran/msh/row_2_msh_template.geo',
+'fortran/msh/ring1_msh_template.geo',
+'fortran/msh/rect_shell1_msh_template.geo',
+'fortran/msh/rect1_msh_template.geo',
+'fortran/msh/L_msh_template.geo',
+'fortran/msh/hex_msh_template.geo',
+'fortran/msh/ellipse_msh_template.geo',
+'fortran/msh/dimer1_msh_template.geo',
+'fortran/msh/cross_shell1_msh_template.geo',
+'fortran/msh/cross1_msh_template.geo',
+'fortran/msh/chiral_slits_msh_template.geo',
+'fortran/msh/16_msh_template.geo',
+'fortran/msh/9_msh_template.geo',
+'fortran/msh/4testing-940_266_sq.mail',
+'fortran/msh/4testing-940_266_sq.geo',
+'fortran/msh/4testing-600_120.mail',
+'fortran/msh/4testing-600_120.geo',
+'fortran/msh/4_msh_template.geo',
+'fortran/msh/3_msh_template.geo',
+'fortran/msh/2_msh_template.geo',
+'fortran/msh/1_strip_msh_template.geo',
+'fortran/msh/1_msh_template.geo',
+'fortran/msh/1D_2_msh_template-horizontal.geo.bak',
+'fortran/msh/1D_2_msh_template.geo.bak',
+'fortran/msh/1D_1_msh_template-vertical.geo.bak',
+'fortran/msh/1D_1_msh_template-horizontal.geo.bak',
+'fortran/msh/1D_1_msh_template.geo.bak',
+'fortran/msh/1_2strip_msh_template.geo',
+]
+)
+py.install_sources(
+  msh_sources,
+  pure: false,
+  subdir: 'emustack/fortran/msh'
+)
+
+
+subdir('fortran')
+

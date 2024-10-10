@@ -1,0 +1,16 @@
+
+
+all-fortran: set bld test-fortran
+
+set:
+    meson setup --wipe builddir
+
+bld:
+    meson compile -C builddir
+
+test-fortran:
+    cd builddir && python -c "import EMUstack"
+
+
+lsf:
+    python -c 'import os; print([f for f in os.listdir() if os.path.isfile(f) and f.endswith(".f")])'

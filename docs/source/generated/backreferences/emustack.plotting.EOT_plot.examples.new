@@ -1,0 +1,34 @@
+
+
+Examples using ``emustack.plotting.EOT_plot``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Simulating Extraordinary Optical Transmission as in H. Liu, P. Lalanne, Nature 452 2008 doi:10....">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_090-EOT_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_090-EOT.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Extraordinary Optical Transmission</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_examples_simo_090-EOT.py`

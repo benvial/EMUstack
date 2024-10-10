@@ -23,21 +23,12 @@ a dilute silicon nanowire array.
 Uses .mail file from repository (to avoid meshing discrepancies).
 """
 
-import datetime
-import sys
-import time
-from multiprocessing import Pool
 
 import numpy as np
-
-sys.path.append("../backend/")
-
-import materials
-import objects
-import plotting
-from stack import *
-
 import testing
+
+from emustack import materials, objects, plotting
+from emustack.stack import *
 
 # Remove results of previous simulations
 plotting.clear_previous()
@@ -104,13 +95,13 @@ def simulate_stack(light):
 
 
 def run_simulation():
-    start = time.time()
 
     # Run in parallel across wavelengths.
     # This has to be in a setup_module otherwise nosetests will crash :(
-    pool = Pool(2)
-    stack_list = pool.map(simulate_stack, light_list)
+    # pool = Pool(2)
+    # stack_list = pool.map(simulate_stack, light_list)
 
+    stack_list = [simulate_stack(l) for l in light_list]
     plotting.t_r_a_plots(stack_list, save_txt=True)
 
     # # SAVE DATA AS REFERENCE
@@ -130,6 +121,7 @@ result_files = (
     "Transmittance_stack0001.txt",
 )
 
+
 def test_stack_list_matches_saved():
     stack_list = run_simulation()
     rtol = 1e-0
@@ -138,4 +130,3 @@ def test_stack_list_matches_saved():
     # rtol = 1e11
     # atol = 1e-1
     # testing.check_results_simu_npz(case, rtol, atol, stack_list)
-

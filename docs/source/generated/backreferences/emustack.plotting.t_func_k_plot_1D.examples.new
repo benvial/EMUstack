@@ -1,0 +1,34 @@
+
+
+Examples using ``emustack.plotting.t_func_k_plot_1D``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here we investigate how efficiently a stack of 1D gratings excite diffraction orders.">
+
+.. only:: html
+
+  .. image:: /examples/images/thumb/sphx_glr_simo_053-plotting_k_space_amps_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_simo_053-plotting_k_space_amps.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">PLatting k-space</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_examples_simo_053-plotting_k_space_amps.py`

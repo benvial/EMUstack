@@ -24,21 +24,12 @@ NOTE: This calculation is entirely analytical & should produce excellent
 agreement on all machines.
 """
 
-import datetime
-import sys
-import time
-from multiprocessing import Pool
 
 import numpy as np
-
-sys.path.append("../backend/")
-
-import materials
-import objects
-import plotting
-from stack import *
-
 import testing
+
+from emustack import materials, objects, plotting
+from emustack.stack import *
 
 ################ Light parameters #####################
 
@@ -119,8 +110,10 @@ def simulate_stack(light):
 def run_simulation():
     # Run in parallel across wavelengths.
     # This has to be in a setup_module otherwise nosetests will crash :(
-    pool = Pool(3)
-    stack_list = pool.map(simulate_stack, light_list)
+    # pool = Pool(3)
+    # stack_list = pool.map(simulate_stack, light_list)
+
+    stack_list = [simulate_stack(l) for l in light_list]
 
     active_layer_nu = 3  # Specify which layer is the active one (where absorption generates charge carriers).
     plotting.t_r_a_plots(stack_list, active_layer_nu=active_layer_nu, save_txt=True)
@@ -149,7 +142,6 @@ result_files = (
     "Reflectance_stack0001.txt",
     "Transmittance_stack0001.txt",
 )
-
 
 
 def test_stack_list_matches_saved():

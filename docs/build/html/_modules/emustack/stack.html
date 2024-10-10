@@ -1,0 +1,919 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>emustack.stack &#8212; EMUstack 0.9.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=39bb1c6d"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/emustack/stack';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">EMUstack 0.9.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../intro.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../tutorial.html">
+                        Tutorial
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../python_backend.html">
+                        Python Backend
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../fortran_backend.html">
+                        Fortran Backends
+                      </a>
+                    </li>
+                
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link dropdown-item nav-internal" href="../../examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../intro.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../tutorial.html">
+                        Tutorial
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../python_backend.html">
+                        Python Backend
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../fortran_backend.html">
+                        Fortran Backends
+                      </a>
+                    </li>
+                
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links-2">
+                    More
+                </button>
+                <ul id="pst-nav-more-links-2" class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link dropdown-item nav-internal" href="../../examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">emustack.stack</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for emustack.stack</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    stack.py is a subroutine of EMUstack that contains the Stack object,</span>
+<span class="sd">    which takes layers with known scattering matrices and calculates</span>
+<span class="sd">    the net scattering matrices of the multilayered stack.</span>
+
+<span class="sd">    Copyright (C) 2015  Bjorn Sturmberg, Kokou Dossou, Felix Lawrence</span>
+
+<span class="sd">    EMUstack is free software: you can redistribute it and/or modify</span>
+<span class="sd">    it under the terms of the GNU General Public License as published by</span>
+<span class="sd">    the Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+
+<span class="sd">    This program is distributed in the hope that it will be useful,</span>
+<span class="sd">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="sd">    GNU General Public License for more details.</span>
+
+<span class="sd">    You should have received a copy of the GNU General Public License</span>
+<span class="sd">    along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.mode_calcs</span> <span class="kn">import</span> <span class="n">r_t_mat</span>
+<span class="kn">from</span> <span class="nn">.mode_calcs</span> <span class="kn">import</span> <span class="n">Anallo</span>
+
+<div class="viewcode-block" id="Stack">
+<a class="viewcode-back" href="../../stack.html#emustack.stack.Stack">[docs]</a>
+<span class="k">class</span> <span class="nc">Stack</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Represents a stack of layers evaluated at one frequency.</span>
+
+<span class="sd">        This includes the semi-infinite input and output layers.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            layers  (tuple): :ThinFilm:s and :NanoStruct:s \</span>
+<span class="sd">                ordered from top to bottom layer.</span>
+
+<span class="sd">            heights_nm  (tuple): the heights of the inside layers,\</span>
+<span class="sd">                i.e., all layers except for the top and bottom. This\</span>
+<span class="sd">                overrides any heights specified in the :ThinFilm: or\</span>
+<span class="sd">                :NanoStruct: objects.</span>
+
+<span class="sd">            shears  (tuple): the in-plane coordinates of each layer,\</span>
+<span class="sd">                including semi-inf layers in unit cell units (i.e. 0-1).</span>
+<span class="sd">                e.g. ([0.0, 0.3], [0.1, 0.1], [0.2, 0.5]) for &#39;2D_array&#39;\</span>
+<span class="sd">                e.g. ([0.0], [ 0.1], [0.5]) for &#39;1D_array&#39;.\</span>
+<span class="sd">                Only required if wish to shift layers relative to each\</span>
+<span class="sd">                other. Only relative difference matters.</span>
+
+<span class="sd">        Note that: scattering matrices, are organised as \</span>
+<span class="sd">                | TE -&gt; TE | TM -&gt; TE | \</span>
+<span class="sd">                | TE -&gt; TM | TM -&gt; TM |</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">heights_nm</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">shears</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_heights_nm</span> <span class="o">=</span> <span class="n">heights_nm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shears</span> <span class="o">=</span> <span class="n">shears</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">period</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">period</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">period_y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">period_y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_periods_are_consistent</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heights_nm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i_lay</span><span class="p">,</span> <span class="n">lay</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">lay</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">height_nm</span> <span class="o">=</span> <span class="n">heights_nm</span><span class="p">[</span><span class="n">i_lay</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Stack.heights_nm">
+<a class="viewcode-back" href="../../stack.html#emustack.stack.Stack.heights_nm">[docs]</a>
+    <span class="k">def</span> <span class="nf">heights_nm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Update heights of each layer to those given in Keyword Arg</span>
+<span class="sd">        &#39;heights_nm&#39;. If no heights specified in Stack, the heights of</span>
+<span class="sd">        each layer object are used. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heights_nm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_heights_nm</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">lay</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">height_nm</span><span class="p">)</span> <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span></div>
+
+
+<div class="viewcode-block" id="Stack.heights_norm">
+<a class="viewcode-back" href="../../stack.html#emustack.stack.Stack.heights_norm">[docs]</a>
+    <span class="k">def</span> <span class="nf">heights_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Normalise heights by the array period. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">h</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">period</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">heights_nm</span><span class="p">()]</span></div>
+
+
+<div class="viewcode-block" id="Stack.total_height">
+<a class="viewcode-back" href="../../stack.html#emustack.stack.Stack.total_height">[docs]</a>
+    <span class="k">def</span> <span class="nf">total_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculate total thickness of stack. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heights</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="Stack.structures">
+<a class="viewcode-back" href="../../stack.html#emustack.stack.Stack.structures">[docs]</a>
+    <span class="k">def</span> <span class="nf">structures</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Return :NanoStruct: or :ThinFilm: object of each layer. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">lay</span><span class="o">.</span><span class="n">structure</span> <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span></div>
+
+
+    <span class="c1"># def calc_R_T_net(self, save_working = True):</span>
+    <span class="c1">#     &quot;&quot;&quot; Calculate the scattering matrices for the stack as a whole.</span>
+
+    <span class="c1">#         INPUTS:</span>
+
+    <span class="c1">#         - `save_working` : If `True`, then store net reflection</span>
+    <span class="c1">#             and transmission matrices at each part of the stack, in</span>
+    <span class="c1">#             `self.R_net_list` and `self.T_net_list`, ordered with</span>
+    <span class="c1">#             the reflection and transmission of the first/topmost</span>
+    <span class="c1">#             finitely thick layer first.</span>
+
+    <span class="c1">#         OUTPUTS:</span>
+
+    <span class="c1">#         - `R_net` : Net reflection matrix</span>
+
+    <span class="c1">#         - `T_net` : Net transmission matrix.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     self._check_periods_are_consistent()</span>
+
+    <span class="c1">#     if save_working:</span>
+    <span class="c1">#         self.R_net_list, self.T_net_list = [], []</span>
+
+    <span class="c1">#     # TODO: swap order of layers</span>
+    <span class="c1">#     # Reflection and transmission at bottom of structure</span>
+    <span class="c1">#     R_net, T_net = r_t_mat(self.layers[1], self.layers[0])[:2]</span>
+
+    <span class="c1">#     lays = self.layers</span>
+    <span class="c1">#     for lay, lay_t, h in zip(lays[1:-1], lays[2:], self.heights_norm()):</span>
+    <span class="c1">#         if save_working:</span>
+    <span class="c1">#             self.R_net_list.insert(0, R_net)</span>
+    <span class="c1">#             self.T_net_list.insert(0, T_net)</span>
+
+    <span class="c1">#         # lay (2) is the layer we&#39;re in right now</span>
+    <span class="c1">#         # lay_t (1) is the layer above it</span>
+    <span class="c1">#         # tf = T in forwards direction (down into lay)</span>
+    <span class="c1">#         R12, T12, R21, T21 = r_t_mat(lay_t, lay)</span>
+    <span class="c1">#         P = lay.prop_fwd(h)</span>
+    <span class="c1">#         idm = np.eye(len(P))</span>
+
+    <span class="c1">#         # Matrix that maps vector of forward modes in medium 1</span>
+    <span class="c1">#         # at 1-2 interface, to fwd modes in medium 2 at 2-3 interface</span>
+    <span class="c1">#         # P * (I - R21 * P * R2net * P)^-1 * T12</span>
+    <span class="c1">#         f12 = P * np.linalg.solve(idm - R21 * P * R_net * P, T12)</span>
+    <span class="c1">#         T_net = T_net * f12</span>
+    <span class="c1">#         R_net = R12 + T21 * P * R_net * f12</span>
+
+    <span class="c1">#     self.R_net, self.T_net = R_net, T_net</span>
+    <span class="c1">#     return self.R_net, self.T_net</span>
+
+    <span class="c1"># def calc_lay_amplitudes(self, incoming_amplitudes):</span>
+    <span class="c1">#     &quot;&quot;&quot; Return the mode amplitudes at the bottom of each layer.</span>
+
+    <span class="c1">#         OUTPUTS:</span>
+
+    <span class="c1">#         - `f_down_list` : List of vectors of amplitudes of</span>
+    <span class="c1">#             downwards/forward modes</span>
+
+    <span class="c1">#         - `f_up_list` : Amplitudes of upwards/backward modes</span>
+
+    <span class="c1">#         Both lists start with the amplitudes in the first finitely-</span>
+    <span class="c1">#         thick layer.</span>
+
+    <span class="c1">#         N.B. this is numerically unstable when T_net is nearly singular.</span>
+    <span class="c1">#         This could be overcome by looping through the interfaces once more</span>
+    <span class="c1">#         iteratively to find f_down_list and f_up_list.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     # Calculate the amplitudes of transmitted modes using T_net</span>
+    <span class="c1">#     f_out = self.T_net * incoming_amplitudes</span>
+
+    <span class="c1">#     # Now work backwards to find what incident field at each interface</span>
+    <span class="c1">#     # leads to this superposition of transmitted modes.</span>
+    <span class="c1">#     f_down_list = [np.linalg.solve(T_net_l, out) for T_net_l in self.T_net_list]</span>
+
+    <span class="c1">#     # And from these, we can use each R_net to find the upward amplitudes</span>
+    <span class="c1">#     f_up_list  = [R * f_d for R, f_d in zip(self.R_net_list, f_down_list)]</span>
+
+    <span class="c1">#     return f_down_list, f_up_list</span>
+
+<div class="viewcode-block" id="Stack.calc_scat">
+<a class="viewcode-back" href="../../stack.html#emustack.stack.Stack.calc_scat">[docs]</a>
+    <span class="k">def</span> <span class="nf">calc_scat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pol</span><span class="o">=</span><span class="s1">&#39;TE&#39;</span><span class="p">,</span> <span class="n">incoming_amplitudes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calc_fluxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">save_scat_list</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculate the transmission and reflection matrices of the stack.</span>
+
+<span class="sd">            In relation to the FEM mesh the polarisation is orientated,</span>
+<span class="sd">            - along the y axis for TE</span>
+<span class="sd">            - along the x axis for TM</span>
+<span class="sd">            at normal incidence (polar angle theta = 0, azimuthal angle phi = 0).</span>
+
+<span class="sd">            Keyword Args:</span>
+<span class="sd">                pol  (str): Polarisation for which to calculate transmission \</span>
+<span class="sd">                    &amp; reflection.</span>
+
+<span class="sd">                incoming_amplitudes  (int): Which incoming PW order to give \</span>
+<span class="sd">                    1 unit of energy. If None the 0th order PW is selected.</span>
+
+<span class="sd">                calc_fluxes  (bool): Calculate energy fluxes. Only possible if \</span>
+<span class="sd">                    top layer is a ThinFilm.</span>
+
+<span class="sd">                save_scat_list  (bool): If True, save tnet_list, rnet_list \</span>
+<span class="sd">                    as property of stack for later access.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Can check this against lines ~ 127 in J_overlap.f E components are TE, have diffraction</span>
+        <span class="c1"># orders along beta, which is along y.</span>
+
+        <span class="c1"># TODO: Switch to calc_R_T_net, which does not use infinitesimal air</span>
+        <span class="c1"># layers. This will require rewriting the parts that calculate fluxes</span>
+        <span class="c1"># through each layer.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_periods_are_consistent</span><span class="p">()</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculate net scattering matrices starting at the bottom.</span>
+<span class="sd">            1 is infinitesimal air layer.</span>
+<span class="sd">            2 is medium in layer (symmetric as air on each side).</span>
+<span class="sd">            (r)t12 and (r)tnet lists run from bottom to top!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r12_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">r21_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">t12_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">t21_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">P_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">st1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="n">R12</span><span class="p">,</span> <span class="n">T12</span><span class="p">,</span> <span class="n">R21</span><span class="p">,</span> <span class="n">T21</span> <span class="o">=</span> <span class="n">r_t_mat</span><span class="p">(</span><span class="n">st1</span><span class="o">.</span><span class="n">air_ref</span><span class="p">(),</span> <span class="n">st1</span><span class="p">)</span>
+            <span class="n">r12_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">R12</span><span class="p">)</span>
+            <span class="n">r21_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">R21</span><span class="p">)</span>
+            <span class="n">t12_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T12</span><span class="p">)</span>
+            <span class="n">t21_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T21</span><span class="p">)</span>
+            <span class="c1"># Save the reflection matrices to the layers</span>
+            <span class="c1"># (for easier introspection/testing)</span>
+            <span class="n">st1</span><span class="o">.</span><span class="n">R12</span><span class="p">,</span> <span class="n">st1</span><span class="o">.</span><span class="n">T12</span><span class="p">,</span> <span class="n">st1</span><span class="o">.</span><span class="n">R21</span><span class="p">,</span> <span class="n">st1</span><span class="o">.</span><span class="n">T21</span> <span class="o">=</span> <span class="n">R12</span><span class="p">,</span> <span class="n">T12</span><span class="p">,</span> <span class="n">R21</span><span class="p">,</span> <span class="n">T21</span>
+
+        <span class="n">PW_pols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">R12</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">neq_PW</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">PW_pols</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
+        <span class="n">PW_pols</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">PW_pols</span><span class="p">)</span>
+        <span class="n">I_air</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">PW_pols</span><span class="p">))</span>
+
+    <span class="c1"># initiate (r)tnet as top interface of substrate</span>
+        <span class="n">tnet_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rnet_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tnet</span> <span class="o">=</span> <span class="n">t12_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">rnet</span> <span class="o">=</span> <span class="n">r12_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">tnet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tnet</span><span class="p">)</span>
+        <span class="n">rnet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rnet</span><span class="p">)</span>
+
+        <span class="n">inv_t21_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">inv_t12_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">lay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c1"># through air layer at bottom of layer</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shears</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">to_invert</span> <span class="o">=</span> <span class="p">(</span><span class="n">I_air</span> <span class="o">-</span> <span class="n">r12_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">rnet</span><span class="p">)</span>
+                <span class="n">inverted_t21</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">to_invert</span><span class="p">,</span> <span class="n">t21_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">tnet</span> <span class="o">=</span> <span class="n">tnet</span><span class="nd">@inverted_t21</span>
+                <span class="n">rnet</span> <span class="o">=</span> <span class="n">r21_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">t12_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@rnet@inverted_t21</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">coord_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shears</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shears</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">Q</span> <span class="o">=</span> <span class="n">st1</span><span class="o">.</span><span class="n">shear_transform</span><span class="p">(</span><span class="n">coord_diff</span><span class="p">)</span>
+                <span class="n">Q_inv</span> <span class="o">=</span> <span class="n">st1</span><span class="o">.</span><span class="n">shear_transform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">coord_diff</span><span class="p">)</span>
+                <span class="n">to_invert</span> <span class="o">=</span> <span class="p">(</span><span class="n">I_air</span> <span class="o">-</span> <span class="n">r12_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@Q_inv@rnet@Q</span><span class="p">)</span>
+                <span class="n">inverted_t21</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">to_invert</span><span class="p">,</span><span class="n">t21_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">tnet</span> <span class="o">=</span> <span class="n">tnet</span><span class="nd">@Q@inverted_t21</span>
+                <span class="n">rnet</span> <span class="o">=</span> <span class="n">r21_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">t12_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@Q_inv@rnet@Q@inverted_t21</span>
+            <span class="n">inv_t21_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inverted_t21</span><span class="p">)</span>
+            <span class="n">tnet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tnet</span><span class="p">)</span>
+            <span class="n">rnet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rnet</span><span class="p">)</span>
+    <span class="c1"># through layer</span>
+            <span class="n">P</span> <span class="o">=</span> <span class="n">lay</span><span class="o">.</span><span class="n">prop_fwd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">heights_nm</span><span class="p">()[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">)</span>
+            <span class="n">I_TF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+            <span class="n">to_invert</span> <span class="o">=</span> <span class="p">(</span><span class="n">I_TF</span> <span class="o">-</span> <span class="n">r21_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@P@rnet@P</span><span class="p">)</span>
+            <span class="n">inverted_t12</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">to_invert</span><span class="p">,</span> <span class="n">t12_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">P_inverted_t12</span> <span class="o">=</span> <span class="n">P</span><span class="nd">@inverted_t12</span>
+            <span class="n">tnet</span> <span class="o">=</span> <span class="n">tnet</span><span class="nd">@P_inverted_t12</span>
+            <span class="n">rnet</span> <span class="o">=</span> <span class="n">r12_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">t21_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@P@rnet@P_inverted_t12</span>
+
+            <span class="n">P_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+            <span class="n">inv_t12_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inverted_t12</span><span class="p">)</span>
+            <span class="n">tnet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tnet</span><span class="p">)</span>
+            <span class="n">rnet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rnet</span><span class="p">)</span>
+
+    <span class="c1"># into top semi-infinite medium</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shears</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">to_invert</span> <span class="o">=</span> <span class="p">(</span><span class="n">I_air</span> <span class="o">-</span> <span class="n">r12_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@rnet</span><span class="p">)</span>
+            <span class="n">inverted_t21</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">to_invert</span><span class="p">,</span><span class="n">t21_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">tnet</span> <span class="o">=</span> <span class="n">tnet</span><span class="nd">@inverted_t21</span>
+            <span class="n">rnet</span> <span class="o">=</span> <span class="n">r21_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">t12_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@rnet@inverted_t21</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coord_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shears</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">Q</span> <span class="o">=</span> <span class="n">st1</span><span class="o">.</span><span class="n">shear_transform</span><span class="p">(</span><span class="n">coord_diff</span><span class="p">)</span>
+            <span class="n">Q_inv</span> <span class="o">=</span> <span class="n">st1</span><span class="o">.</span><span class="n">shear_transform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">coord_diff</span><span class="p">)</span>
+            <span class="n">to_invert</span> <span class="o">=</span> <span class="p">(</span><span class="n">I_air</span> <span class="o">-</span> <span class="n">r12_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@Q_inv@rnet@Q</span><span class="p">)</span>
+            <span class="n">inverted_t21</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">to_invert</span><span class="p">,</span><span class="n">t21_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">tnet</span> <span class="o">=</span> <span class="n">tnet</span><span class="nd">@Q@inverted_t21</span>
+            <span class="n">rnet</span> <span class="o">=</span> <span class="n">r21_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">t12_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@Q_inv@rnet@Q@inverted_t21</span>
+        <span class="n">inv_t21_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inverted_t21</span><span class="p">)</span>
+        <span class="n">tnet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tnet</span><span class="p">)</span>
+        <span class="n">rnet_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rnet</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">R_net</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T_net</span> <span class="o">=</span> <span class="n">rnet</span><span class="p">,</span> <span class="n">tnet</span>
+        <span class="k">if</span> <span class="n">save_scat_list</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tnet_list</span> <span class="o">=</span> <span class="n">tnet_list</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rnet_list</span> <span class="o">=</span> <span class="n">rnet_list</span>
+
+        <span class="k">if</span> <span class="n">calc_fluxes</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot; Calculate field expansions for all layers (including air) \</span>
+<span class="sd">                starting at top.</span>
+<span class="sd">                Ordering is now top to bottom (inverse of above)! \</span>
+<span class="sd">                i.e. f1 is superstrate (top).</span>
+<span class="sd">                Calculate net downward energy flux in each infinitesimal air layer \</span>
+<span class="sd">                &amp; super/substrates (see appendix C in Dossou et al. JOSA 2012).</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">r_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">a_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">num_prop_air</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">air_ref</span><span class="p">()</span><span class="o">.</span><span class="n">num_prop_pw_per_pol</span>
+            <span class="n">num_prop_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_prop_pw_per_pol</span>
+
+            <span class="n">down_fluxes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">up_flux</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">vec_coef_down</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">vec_coef_up</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vec_coef_down</span> <span class="o">=</span> <span class="n">vec_coef_down</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vec_coef_up</span> <span class="o">=</span> <span class="n">vec_coef_up</span>
+
+        <span class="c1"># Start by composing U matrix which is same for all air layers.</span>
+        <span class="c1"># It is a diagonal matrix with 1 for propagating, i for evanescent TE</span>
+        <span class="c1"># &amp; -i for evanescent TM plane wave orders.</span>
+
+            <span class="n">U_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">PW_pols</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">PW_pols</span><span class="p">),</span><span class="nb">complex</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_prop_air</span><span class="p">):</span>
+                <span class="n">U_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="n">U_mat</span><span class="p">[</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">neq_PW</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="n">U_mat</span><span class="p">[</span><span class="n">PW_pols</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">PW_pols</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+                <span class="n">U_mat</span><span class="p">[</span><span class="n">PW_pols</span><span class="o">+</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">PW_pols</span><span class="o">+</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_prop_air</span><span class="p">,</span> <span class="n">neq_PW</span><span class="p">):</span>
+                <span class="n">U_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">PW_pols</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="n">j</span>
+                <span class="n">U_mat</span><span class="p">[</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">PW_pols</span><span class="o">+</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">j</span>
+                <span class="n">U_mat</span><span class="p">[</span><span class="n">PW_pols</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="n">j</span>
+                <span class="n">U_mat</span><span class="p">[</span><span class="n">PW_pols</span><span class="o">+</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">neq_PW</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="n">j</span>
+
+            <span class="k">if</span> <span class="n">incoming_amplitudes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Set the incident field to be a 0th order plane wave</span>
+                <span class="c1"># in a given polarisation, from the semi-inf top layer</span>
+                <span class="n">d_minus</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">specular_incidence</span><span class="p">(</span><span class="n">pol</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d_minus</span> <span class="o">=</span> <span class="n">incoming_amplitudes</span>
+
+        <span class="c1"># total incoming flux</span>
+            <span class="n">flux_TE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d_minus</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num_prop_in</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">flux_TM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d_minus</span><span class="p">[</span><span class="n">neq_PW</span><span class="p">:</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">num_prop_in</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">down_fluxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flux_TE</span> <span class="o">+</span> <span class="n">flux_TM</span><span class="p">)</span>
+
+        <span class="c1"># up into semi-inf off top air gap</span>
+            <span class="n">d_plus</span> <span class="o">=</span> <span class="n">rnet_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@d_minus</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vec_coef_down</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d_minus</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vec_coef_up</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d_plus</span><span class="p">)</span>
+        <span class="c1"># total reflected flux</span>
+            <span class="n">flux_TE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d_plus</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num_prop_in</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">flux_TM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d_plus</span><span class="p">[</span><span class="n">neq_PW</span><span class="p">:</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">num_prop_in</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">up_flux</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flux_TE</span> <span class="o">+</span> <span class="n">flux_TM</span><span class="p">)</span>
+
+        <span class="c1"># incoming from semi-inf into top air gap</span>
+            <span class="n">f1_minus</span> <span class="o">=</span> <span class="n">inv_t21_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@d_minus</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">f1_plus</span> <span class="o">=</span> <span class="n">rnet_list</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="nd">@f1_minus</span>
+        <span class="c1"># net downward flux in infinitesimal air layer</span>
+                <span class="n">f_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">f1_minus</span><span class="p">,</span> <span class="n">f1_plus</span><span class="p">)))</span>
+                <span class="n">flux</span> <span class="o">=</span> <span class="n">f_mat</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="nd">@U_mat@f_mat</span>
+                <span class="n">down_fluxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span>
+
+                <span class="n">f2_minus</span> <span class="o">=</span> <span class="n">inv_t12_list</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@f1_minus</span>
+                <span class="n">f2_plus</span> <span class="o">=</span> <span class="n">rnet_list</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="nd">@P_list</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@f2_minus</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vec_coef_down</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f2_minus</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vec_coef_up</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f2_plus</span><span class="p">)</span>
+
+                <span class="n">f1_minus</span> <span class="o">=</span> <span class="n">inv_t21_list</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="nd">@P_list</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="nd">@f2_minus</span>
+
+        <span class="c1"># bottom air to semi-inf substrate</span>
+            <span class="n">f1_plus</span> <span class="o">=</span> <span class="n">rnet_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="nd">@f1_minus</span>
+
+            <span class="n">f2_minus</span> <span class="o">=</span> <span class="n">tnet_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="nd">@f1_minus</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vec_coef_down</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f2_minus</span><span class="p">)</span>
+            <span class="c1"># self.trans_vector = f2_minus</span>
+        <span class="c1"># can only calculate the energy flux in homogeneous films</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Anallo</span><span class="p">):</span>
+                <span class="n">num_prop_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">num_prop_pw_per_pol</span>
+                <span class="k">if</span> <span class="n">num_prop_out</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># out             = self.layers[0].specular_order</span>
+                    <span class="n">flux_TE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">f2_minus</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num_prop_out</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+                    <span class="n">flux_TM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">f2_minus</span><span class="p">[</span><span class="n">neq_PW</span><span class="p">:</span><span class="n">neq_PW</span><span class="o">+</span><span class="n">num_prop_out</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+                    <span class="n">down_fluxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flux_TE</span> <span class="o">+</span> <span class="n">flux_TM</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: there are no propagating modes in the semi-inf </span><span class="se">\n</span><span class="s2"> substrate therefore cannot calculate energy fluxes here.&quot;</span><span class="p">)</span>
+
+                <span class="n">num_prop_in</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_prop_pw_per_pol</span>
+                <span class="k">if</span> <span class="n">num_prop_out</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># calculate absorptance in each layer</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span> <span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                        <span class="n">a_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_layer</span><span class="p">)</span>
+                    <span class="n">a_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">down_fluxes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">up_flux</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_layer</span><span class="p">)</span>
+
+                <span class="c1"># calculate reflectance in each layer</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">up_flux</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                        <span class="n">r_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">up_flux</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r_layer</span><span class="p">)</span>
+                    <span class="n">r_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">up_flux</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">down_fluxes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r_layer</span><span class="p">)</span>
+
+                <span class="c1"># calculate transmittance in each layer</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+                        <span class="n">t_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">t_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_layer</span><span class="p">)</span>
+                    <span class="n">t_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">down_fluxes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">t_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_layer</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">a_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">r_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">t_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: there are no propagating modes in the semi-inf </span><span class="se">\n</span><span class="s2"> superstrate therefore CANNOT CALCULATE ENERGY FLUXES ANYWHERE.&quot;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># calculate absorptance in each layer</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">a_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_layer</span><span class="p">)</span>
+                <span class="n">a_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">down_fluxes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">up_flux</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_layer</span><span class="p">)</span>
+
+            <span class="c1"># calculate reflectance in each layer</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">up_flux</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">r_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">up_flux</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r_layer</span><span class="p">)</span>
+                <span class="n">r_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">up_flux</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">down_fluxes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r_layer</span><span class="p">)</span>
+
+            <span class="c1"># calculate transmittance in each layer</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+                    <span class="n">t_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">t_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_layer</span><span class="p">)</span>
+                <span class="n">t_layer</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">down_fluxes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">down_fluxes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">t_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_layer</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">_check_periods_are_consistent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Raise an error if layers have different periods.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">lay</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">period</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="p">,</span> \
+                <span class="s2">&quot;All layers in a multilayer stack must have the same period.&quot;</span>
+            <span class="k">assert</span> <span class="n">lay</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">period_y</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">period_y</span><span class="p">,</span> \
+                <span class="s2">&quot;All layers in a multilayer stack must have the same period_y.&quot;</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2014, Björn Sturmberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

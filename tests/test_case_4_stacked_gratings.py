@@ -22,23 +22,11 @@ Test simulation of stacked 1D gratings.
 """
 
 
-import datetime
-import sys
-import time
-from multiprocessing import Pool
-
 import numpy as np
-
-sys.path.append("../backend/")
-
-import materials
-import objects
-import plotting
-from numpy.testing import assert_allclose as assert_ac
-from numpy.testing import assert_equal
-from stack import *
-
 import testing
+
+from emustack import materials, objects, plotting
+from emustack.stack import *
 
 
 def run_simulation():
@@ -61,6 +49,7 @@ def run_simulation():
     substrate = objects.ThinFilm(
         period, height_nm="semi_inf", world_1d=True, material=materials.Air, loss=False
     )
+    
 
     grating_1 = objects.NanoStruct(
         "1D_array",
@@ -86,6 +75,8 @@ def run_simulation():
         lc_bkg=0.005,
     )
 
+    
+
     ################ Evaluate each layer individually ##############
     sim_superstrate = superstrate.calc_modes(light)
     sim_substrate = substrate.calc_modes(light)
@@ -101,6 +92,9 @@ def run_simulation():
     stack.calc_scat(pol="TE")
     stack_list = [stack]
 
+
+    
+
     plotting.t_r_a_plots(stack_list, save_txt=True)
 
     # # SAVE DATA AS REFERENCE
@@ -109,7 +103,6 @@ def run_simulation():
     # # in the future
     # testing.save_reference_data("case_4", stack_list)
     return stack_list
-
 
 
 case = 4
@@ -122,7 +115,6 @@ result_files = (
     "Reflectance_stack0001.txt",
     "Transmittance_stack0001.txt",
 )
-
 
 
 def test_stack_list_matches_saved():
