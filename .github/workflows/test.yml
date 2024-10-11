@@ -25,5 +25,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python_version }}
-      - run: pip install -e .[test] --no-build-isolation -v
-      - run: pytest
+      - run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -e .[test] --no-build-isolation -v
+          pytest
