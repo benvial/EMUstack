@@ -3,10 +3,6 @@
 *.mail
 *.pyf
 *.exe
-emustack/data/*.geo
-emustack/data/*.log
-emustack/data/*.mail
-emustack/data/*.msh
 examples/*.txt
 examples/*.pdf
 examples/*.log
