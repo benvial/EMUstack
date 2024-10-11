@@ -31,3 +31,5 @@ __pycache__
 .coverage
 emustack/fortran/lib/*.o
 htmlcov
+
+!emustack/data/.mail
