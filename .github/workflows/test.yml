@@ -17,12 +17,13 @@ jobs:
       - name: Install system packages
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt-get install -y --no-install-recommends  \
-          python3-full python3-pip python3-dev gfortran make pkg-config cmake \
+          sudo apt-get update -q
+          sudo apt-get install -q -y --no-install-recommends  \
+          gfortran make pkg-config cmake \
           libsuitesparse-dev liblapack-dev libopenblas-dev
       - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python_version }}
-      - run: pip install -e .[test] -v --no-build-isolation
+      - run: pip install -e .[test] --no-build-isolation -v
       - run: pytest
