@@ -27,8 +27,6 @@ jobs:
           python-version: ${{ matrix.python_version }}
       - name: Install package and run tests
         run: |
-          python -m venv .venv
-          source .venv/bin/activate
           pip install meson-python ninja
           pip install .[test] -v
           pytest
