@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # EMUstack documentation build configuration file, created by
 # sphinx-quickstart on Sat Jun 14 14:17:22 2014.
@@ -52,16 +51,16 @@ import emustack as package
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.doctest",
-    "sphinx.ext.todo",
-    "sphinx.ext.coverage",
-    "sphinx.ext.mathjax",
-    "sphinx.ext.viewcode",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.mathjax",
-    "sphinx_gallery.gen_gallery",
-    "sphinx_copybutton",
+	"sphinx.ext.autodoc",
+	"sphinx.ext.doctest",
+	"sphinx.ext.todo",
+	"sphinx.ext.coverage",
+	"sphinx.ext.mathjax",
+	"sphinx.ext.viewcode",
+	"sphinx.ext.napoleon",
+	"sphinx.ext.mathjax",
+	"sphinx_gallery.gen_gallery",
+	"sphinx_copybutton",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -216,19 +215,25 @@ htmlhelp_basename = "EMUstackdoc"
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #'papersize': 'letterpaper',
-    # The font size ('10pt', '11pt' or '12pt').
-    #'pointsize': '10pt',
-    # Additional stuff for the LaTeX preamble.
-    #'preamble': '',
+	# The paper size ('letterpaper' or 'a4paper').
+	#'papersize': 'letterpaper',
+	# The font size ('10pt', '11pt' or '12pt').
+	#'pointsize': '10pt',
+	# Additional stuff for the LaTeX preamble.
+	#'preamble': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ("index", "EMUstack.tex", "EMUstack Documentation", "Björn Sturmberg", "manual"),
+	(
+		"index",
+		"EMUstack.tex",
+		"EMUstack Documentation",
+		"Björn Sturmberg",
+		"manual",
+	),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -256,7 +261,9 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [("index", "emustack", "EMUstack Documentation", ["Björn Sturmberg"], 1)]
+man_pages = [
+	("index", "emustack", "EMUstack Documentation", ["Björn Sturmberg"], 1)
+]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -268,15 +275,15 @@ man_pages = [("index", "emustack", "EMUstack Documentation", ["Björn Sturmberg"
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (
-        "index",
-        "EMUstack",
-        "EMUstack Documentation",
-        "Björn Sturmberg",
-        "EMUstack",
-        "One line description of project.",
-        "Miscellaneous",
-    ),
+	(
+		"index",
+		"EMUstack",
+		"EMUstack Documentation",
+		"Björn Sturmberg",
+		"EMUstack",
+		"One line description of project.",
+		"Miscellaneous",
+	),
 ]
 
 # Documents to append as an appendix to all manuals.
@@ -292,43 +299,43 @@ texinfo_documents = [
 # texinfo_no_detailmenu = False
 
 sphinx_gallery_conf = {
-    # path to your examples scripts
-    "examples_dirs": ["../../examples"],
-    # path where to save gallery generated examples
-    "gallery_dirs": ["examples"],
-    # # path to your examples scripts
-    # "examples_dirs": ["../tutorials"],
-    # # path where to save gallery generated examples
-    # "gallery_dirs": ["tutorials"],
-    # directory where function granular galleries are stored
-    "backreferences_dir": "generated/backreferences",
-    "remove_config_comments": True,
-    "reference_url": {
-        "sphinx_gallery": None,
-    },
-    "reset_modules": (),
-    "image_scrapers": ("matplotlib"),
-    # "pypandoc": True,
-    # "pypandoc": {"extra_args": ["-C","--bibliography=_custom/latex/biblio.bib"], "filters": []},
-    # "filename_pattern": "plot_homogenization\.py",
-    "filename_pattern": "/simo_",
-    # "ignore_pattern": r"^((?!/plot_).)*$",  # ignore files that do not start with plot_
-    # "first_notebook_cell": (
-    #     "import matplotlib\n" "mpl.style.use('gyptis')\n" "%matplotlib inline"
-    # ),
-    # "image_scrapers": ("matplotlib", PNGScraper()),
-    # Modules for which function level galleries are created.
-    "doc_module": package.__name__,
-    "thumbnail_size": (800, 800),
-    # "default_thumb_file": "./_assets/gyptis.png",
-    "show_memory": True,
-    # "binder": {
-    #     "org": "phokaia",
-    #     "repo": "phokaia.gitlab.io/emustack",
-    #     "branch": "doc",
-    #     "binderhub_url": "https://mybinder.org",
-    #     "dependencies": "../environment.yml",
-    #     "notebooks_dir": "notebooks",
-    #     "use_jupyter_lab": True,
-    # },
+	# path to your examples scripts
+	"examples_dirs": ["../../examples"],
+	# path where to save gallery generated examples
+	"gallery_dirs": ["examples"],
+	# # path to your examples scripts
+	# "examples_dirs": ["../tutorials"],
+	# # path where to save gallery generated examples
+	# "gallery_dirs": ["tutorials"],
+	# directory where function granular galleries are stored
+	"backreferences_dir": "generated/backreferences",
+	"remove_config_comments": True,
+	"reference_url": {
+		"sphinx_gallery": None,
+	},
+	"reset_modules": (),
+	"image_scrapers": ("matplotlib"),
+	# "pypandoc": True,
+	# "pypandoc": {"extra_args": ["-C","--bibliography=_custom/latex/biblio.bib"], "filters": []},
+	# "filename_pattern": "plot_homogenization\.py",
+	"filename_pattern": "/simo_",
+	# "ignore_pattern": r"^((?!/plot_).)*$",  # ignore files that do not start with plot_
+	# "first_notebook_cell": (
+	#     "import matplotlib\n" "mpl.style.use('gyptis')\n" "%matplotlib inline"
+	# ),
+	# "image_scrapers": ("matplotlib", PNGScraper()),
+	# Modules for which function level galleries are created.
+	"doc_module": package.__name__,
+	"thumbnail_size": (800, 800),
+	# "default_thumb_file": "./_assets/gyptis.png",
+	"show_memory": True,
+	# "binder": {
+	#     "org": "phokaia",
+	#     "repo": "phokaia.gitlab.io/emustack",
+	#     "branch": "doc",
+	#     "binderhub_url": "https://mybinder.org",
+	#     "dependencies": "../environment.yml",
+	#     "notebooks_dir": "notebooks",
+	#     "use_jupyter_lab": True,
+	# },
 }

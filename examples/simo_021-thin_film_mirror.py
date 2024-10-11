@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-"""
-Metallic multilayer stack
+r"""
+Metallic multilayer stack.
 ===========================
 
 EUMstack loves metal \m/
@@ -50,38 +50,47 @@ wl_2 = 800
 no_wl_1 = 400
 wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
 light_list = [
-    objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0) for wl in wavelengths
+	objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0)
+	for wl in wavelengths
 ]
 
 # The period must be consistent throughout a simulation!
 period = 300
 
 # Define each layer of the structure, as in last example.
-superstrate = objects.ThinFilm(period, height_nm="semi_inf", material=materials.Air)
-TF_2 = objects.ThinFilm(period, height_nm=5e2, material=materials.InP, loss=False)
+superstrate = objects.ThinFilm(
+	period, height_nm="semi_inf", material=materials.Air
+)
+TF_2 = objects.ThinFilm(
+	period, height_nm=5e2, material=materials.InP, loss=False
+)
 TF_3 = objects.ThinFilm(period, height_nm=52, material=materials.Si_a)
 # Realistically a few micron thick mirror would do the trick,
 # but EMUstack is height agnostic.... so what the hell.
 mirror = objects.ThinFilm(period, height_nm=1e5, material=materials.Ag)
-substrate = objects.ThinFilm(period, height_nm="semi_inf", material=materials.Air)
+substrate = objects.ThinFilm(
+	period, height_nm="semi_inf", material=materials.Air
+)
 
 
 def simulate_stack(light):
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_mirror = mirror.calc_modes(light)
-    sim_TF_2 = TF_2.calc_modes(light)
-    sim_TF_3 = TF_3.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_mirror = mirror.calc_modes(light)
+	sim_TF_2 = TF_2.calc_modes(light)
+	sim_TF_3 = TF_3.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
-    # Put semi-inf substrate below thick mirror so that propagating energy is defined.
-    stack = Stack((sim_substrate, sim_mirror, sim_TF_3, sim_TF_2, sim_superstrate))
-    stack.calc_scat(pol="TM")
+	# Put semi-inf substrate below thick mirror so that propagating energy is defined.
+	stack = Stack(
+		(sim_substrate, sim_mirror, sim_TF_3, sim_TF_2, sim_superstrate)
+	)
+	stack.calc_scat(pol="TM")
 
-    return stack
+	return stack
 
 
 pool = Pool(num_cores)
@@ -98,14 +107,8 @@ print("\n*******************************************")
 # Calculate and record the (real) time taken for simulation,
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 print(hms_string)
 print("*******************************************")
 print("")

@@ -1,20 +1,20 @@
 """
-    test_case_4_EOT.py is a simulation example for EMUstack.
+test_case_4_EOT.py is a simulation example for EMUstack.
 
-    Copyright (C) 2015  Bjorn Sturmberg, Kokou Dossou, Felix Lawrence
+Copyright (C) 2015  Bjorn Sturmberg, Kokou Dossou, Felix Lawrence
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 """
@@ -37,68 +37,68 @@ from emustack.stack import *
 
 
 def run_simulation():
-    # # Remove results of previous simulations
-    # plotting.clear_previous()
+	# # Remove results of previous simulations
+	# plotting.clear_previous()
 
-    ################ Light parameters #####################
-    wl_1 = 1.04 * 940
-    wl_2 = 1.15 * 940
-    no_wl_1 = 1
-    # Set up light objects
-    wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
-    light_list = [
-        objects.Light(wl, max_order_PWs=0, theta=0.0, phi=0.0) for wl in wavelengths
-    ]
-    light = light_list[0]
+	################ Light parameters #####################
+	wl_1 = 1.04 * 940
+	wl_2 = 1.15 * 940
+	no_wl_1 = 1
+	# Set up light objects
+	wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
+	light_list = [
+		objects.Light(wl, max_order_PWs=0, theta=0.0, phi=0.0)
+		for wl in wavelengths
+	]
+	light = light_list[0]
 
-    # period must be consistent throughout simulation!!!
-    period = 940
-    diam1 = 266
-    NHs = objects.NanoStruct(
-        "2D_array",
-        period,
-        diam1,
-        height_nm=200,
-        inclusion_a=materials.Air,
-        background=materials.Au,
-        loss=True,
-        inc_shape="square",
-        make_mesh_now=True,
-        force_mesh=True,
-        lc_bkg=0.05,
-        lc2=5.0,
-        lc3=3.0,
-    )  # lc_bkg = 0.08, lc2= 5.0)
+	# period must be consistent throughout simulation!!!
+	period = 940
+	diam1 = 266
+	NHs = objects.NanoStruct(
+		"2D_array",
+		period,
+		diam1,
+		height_nm=200,
+		inclusion_a=materials.Air,
+		background=materials.Au,
+		loss=True,
+		inc_shape="square",
+		make_mesh_now=True,
+		force_mesh=True,
+		lc_bkg=0.05,
+		lc2=5.0,
+		lc3=3.0,
+	)  # lc_bkg = 0.08, lc2= 5.0)
 
-    cover = objects.ThinFilm(
-        period=period, height_nm="semi_inf", material=materials.Air, loss=False
-    )
-    sub = objects.ThinFilm(
-        period=period, height_nm="semi_inf", material=materials.Air, loss=False
-    )
+	cover = objects.ThinFilm(
+		period=period, height_nm="semi_inf", material=materials.Air, loss=False
+	)
+	sub = objects.ThinFilm(
+		period=period, height_nm="semi_inf", material=materials.Air, loss=False
+	)
 
-    num_BMs = 10
-    ################ Evaluate each layer individually ##############
-    sim_NHs = NHs.calc_modes(light, num_BMs=num_BMs)
-    sim_cover = cover.calc_modes(light)
-    sim_sub = sub.calc_modes(light)
+	num_BMs = 10
+	################ Evaluate each layer individually ##############
+	sim_NHs = NHs.calc_modes(light, num_BMs=num_BMs)
+	sim_cover = cover.calc_modes(light)
+	sim_sub = sub.calc_modes(light)
 
-    stack = Stack((sim_sub, sim_NHs, sim_cover))
-    stack.calc_scat(pol="TE")
-    stack_list = [stack]
+	stack = Stack((sim_sub, sim_NHs, sim_cover))
+	stack.calc_scat(pol="TE")
+	stack_list = [stack]
 
-    plotting.t_r_a_plots(stack_list, save_txt=True)
+	plotting.t_r_a_plots(stack_list, save_txt=True)
 
-    # # # # SAVE DATA AS REFERENCE
-    # # # # Only run this after changing what is simulated - this
-    # # # # generates a new set of reference answers to check against
-    # # # # in the future
-    # # Rnet = stack_list[0].R_net[0,0]
-    # # print Rnet
+	# # # # SAVE DATA AS REFERENCE
+	# # # # Only run this after changing what is simulated - this
+	# # # # generates a new set of reference answers to check against
+	# # # # in the future
+	# # Rnet = stack_list[0].R_net[0,0]
+	# # print Rnet
 
-    # testing.save_reference_data("case_7", stack_list)
-    return stack_list
-    
+	# testing.save_reference_data("case_7", stack_list)
+	return stack_list
 
 
 # def test_stack_list_matches_saved(casefile_name="case_4"):
@@ -121,31 +121,29 @@ def run_simulation():
 #         yield assert_ac, stack.T_net, rstack["T_net"], rtol, atol, lbl_s + "T_net"
 
 
-
 case = 7
 
 result_files = (
-    "Absorptance_stack0001.txt",
-    "Lay_Absorb_0_stack0001.txt",
-    "Lay_Trans_0_stack0001.txt",
-    "Reflectance_stack0001.txt",
-    "Transmittance_stack0001.txt",
+	"Absorptance_stack0001.txt",
+	"Lay_Absorb_0_stack0001.txt",
+	"Lay_Trans_0_stack0001.txt",
+	"Reflectance_stack0001.txt",
+	"Transmittance_stack0001.txt",
 )
 
 
 def test_stack_list_matches_saved():
-    stack_list = run_simulation()
-    rtol = 1e-1
-    atol = 5e-1
-    testing.results_match_reference(case, rtol, atol, result_files)
-    rtol = 1e-1
-    atol = 1e-1
-    testing.check_results_simu_npz(case, rtol, atol, stack_list)
-    plotting.plt.close("all")
-    
+	stack_list = run_simulation()
+	rtol = 1e-1
+	atol = 5e-1
+	testing.results_match_reference(case, rtol, atol, result_files)
+	rtol = 1e-1
+	atol = 1e-1
+	testing.check_results_simu_npz(case, rtol, atol, stack_list)
+	plotting.plt.close("all")
 
 
 # plotting.clear_previous()
 
 if __name__ == "__main__":
-    test_stack_list_matches_saved()
+	test_stack_list_matches_saved()

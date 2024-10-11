@@ -17,7 +17,7 @@
 
 
 """
-Extraordinary Optical Transmission
+Extraordinary Optical Transmission.
 ====================================
 
 Simulating Extraordinary Optical Transmission
@@ -50,7 +50,8 @@ no_wl_1 = 2
 wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
 # wavelengths = np.array([785,788,790,792,795])
 light_list = [
-    objects.Light(wl, max_order_PWs=2, theta=0.0, phi=0.0) for wl in wavelengths
+	objects.Light(wl, max_order_PWs=2, theta=0.0, phi=0.0)
+	for wl in wavelengths
 ]
 
 
@@ -58,23 +59,23 @@ light_list = [
 period = 940
 diam1 = 266
 NHs = objects.NanoStruct(
-    "2D_array",
-    period,
-    diam1,
-    height_nm=200,
-    inclusion_a=materials.Air,
-    background=materials.Au,
-    loss=True,
-    inc_shape="square",
-    make_mesh_now=True,
-    force_mesh=True,
-    lc_bkg=0.12,
-    lc2=5.0,
-    lc3=3.0,
+	"2D_array",
+	period,
+	diam1,
+	height_nm=200,
+	inclusion_a=materials.Air,
+	background=materials.Au,
+	loss=True,
+	inc_shape="square",
+	make_mesh_now=True,
+	force_mesh=True,
+	lc_bkg=0.12,
+	lc2=5.0,
+	lc3=3.0,
 )  # lc_bkg = 0.08, lc2= 5.0)
 
 strate = objects.ThinFilm(
-    period=period, height_nm="semi_inf", material=materials.Air, loss=False
+	period=period, height_nm="semi_inf", material=materials.Air, loss=False
 )
 
 NH_heights = [200]
@@ -83,18 +84,18 @@ NH_heights = [200]
 
 
 def simulate_stack(light):
-    ################ Evaluate each layer individually ##############
-    sim_NHs = NHs.calc_modes(light)
-    sim_strate = strate.calc_modes(light)
+	################ Evaluate each layer individually ##############
+	sim_NHs = NHs.calc_modes(light)
+	sim_strate = strate.calc_modes(light)
 
-    # Loop over heights
-    height_list = []
-    for h in NH_heights:
-        stackSub = Stack((sim_strate, sim_NHs, sim_strate), heights_nm=([h]))
-        stackSub.calc_scat(pol="TE")
-        height_list.append(stackSub)
+	# Loop over heights
+	height_list = []
+	for h in NH_heights:
+		stackSub = Stack((sim_strate, sim_NHs, sim_strate), heights_nm=([h]))
+		stackSub.calc_scat(pol="TE")
+		height_list.append(stackSub)
 
-    return [height_list]
+	return [height_list]
 
 
 # Run in parallel across wavelengths.
@@ -110,15 +111,15 @@ last_light_object = light_list.pop()
 wls_normed = wavelengths / period
 
 for h in range(len(NH_heights)):
-    height = NH_heights[h]
-    wl_list = []
-    stack_label = 0
-    for wl in range(len(wavelengths)):
-        wl_list.append(stacks_list[wl][stack_label][h])
-    mess_name = "_h%(h)i" % {
-        "h": h,
-    }
-    plotting.EOT_plot(wl_list, wls_normed, add_name=mess_name, savetxt=True)
+	height = NH_heights[h]
+	wl_list = []
+	stack_label = 0
+	for wl in range(len(wavelengths)):
+		wl_list.append(stacks_list[wl][stack_label][h])
+	mess_name = "_h%(h)i" % {
+		"h": h,
+	}
+	plotting.EOT_plot(wl_list, wls_normed, add_name=mess_name, savetxt=True)
 # Dispersion
 plotting.omega_plot(wl_list, wavelengths)
 
@@ -126,14 +127,8 @@ plotting.omega_plot(wl_list, wavelengths)
 # Calculate and record the (real) time taken for simulation
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 
 python_log = open("python_log.log", "w")
 python_log.write(hms_string)

@@ -48,7 +48,7 @@ help:
 
 clean:
 	@rm -rf $(BUILDDIR)/*
-	@rm -rf source/examples
+	@rm -rf source/examples source/generated source/sg_execution_times.rst
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html

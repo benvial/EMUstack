@@ -17,7 +17,7 @@
 
 
 """
-Multilayered stack
+Multilayered stack.
 =================
 
 Simulating a stack of homogeneous, dispersive media.
@@ -47,49 +47,63 @@ wl_2 = 800
 no_wl_1 = 400
 wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
 light_list = [
-    objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0) for wl in wavelengths
+	objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0)
+	for wl in wavelengths
 ]
 
 # The period must be consistent throughout a simulation!
 period = 300
 
 # Define each layer of the structure.
-superstrate = objects.ThinFilm(period, height_nm="semi_inf", material=materials.Air)
+superstrate = objects.ThinFilm(
+	period, height_nm="semi_inf", material=materials.Air
+)
 # Define a thin film with (finite) thickness in nm and constant refractive index
-TF_1 = objects.ThinFilm(period, height_nm=100, material=materials.Material(1.0 + 0.05j))
+TF_1 = objects.ThinFilm(
+	period, height_nm=100, material=materials.Material(1.0 + 0.05j)
+)
 # EMUstack calculation time is independent dispersion and thickness of layer!
 # This layer is made of Indium Phosphide, the tabulated refractive index of which
 # is stored in EMUstack/data/
 # We artificially set the imaginary part of the layer to zero for all wavelengths.
-TF_2 = objects.ThinFilm(period, height_nm=5e2, material=materials.InP, loss=False)
+TF_2 = objects.ThinFilm(
+	period, height_nm=5e2, material=materials.InP, loss=False
+)
 # By default loss = True
 TF_3 = objects.ThinFilm(period, height_nm=52, material=materials.Si_a)
 # Note that the semi-inf substrate must be lossess so that EMUstack can distinguish
 # propagating plane waves that carry energy from evanescent waves which do not.
 # This layer is therefore crystalline silicon with Im(n) == 0.
 substrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Si_c, loss=False
+	period, height_nm="semi_inf", material=materials.Si_c, loss=False
 )
 
 
 def simulate_stack(light):
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_TF_1 = TF_1.calc_modes(light)
-    sim_TF_2 = TF_2.calc_modes(light)
-    sim_TF_3 = TF_3.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_TF_1 = TF_1.calc_modes(light)
+	sim_TF_2 = TF_2.calc_modes(light)
+	sim_TF_3 = TF_3.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
-    # We can now stack these layers of finite thickness however we wish.
-    stack = Stack(
-        (sim_substrate, sim_TF_1, sim_TF_3, sim_TF_2, sim_TF_1, sim_superstrate)
-    )
-    stack.calc_scat(pol="TM")
+	# We can now stack these layers of finite thickness however we wish.
+	stack = Stack(
+		(
+			sim_substrate,
+			sim_TF_1,
+			sim_TF_3,
+			sim_TF_2,
+			sim_TF_1,
+			sim_superstrate,
+		)
+	)
+	stack.calc_scat(pol="TM")
 
-    return stack
+	return stack
 
 
 # Run wavelengths in parallel across num_cores CPUs using multiprocessing package.
@@ -108,14 +122,8 @@ print("\n*******************************************")
 # Calculate and record the (real) time taken for simulation,
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 print(hms_string)
 print("*******************************************")
 print("")

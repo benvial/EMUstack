@@ -17,12 +17,11 @@
 
 
 """
-PLatting k-space
+PLatting k-space.
 ==========================
 
 Here we investigate how efficiently a stack of 1D gratings excite diffraction orders.
 """
-
 
 import datetime
 import time
@@ -45,7 +44,9 @@ plotting.clear_previous()
 ################ Light parameters #####################
 azi_angles = np.linspace(-89, 89, 10)
 wl = 100
-light_list = [objects.Light(wl, max_order_PWs=10, theta=p, phi=0.0) for p in azi_angles]
+light_list = [
+	objects.Light(wl, max_order_PWs=10, theta=p, phi=0.0) for p in azi_angles
+]
 
 
 ################ Grating parameters #####################
@@ -53,50 +54,59 @@ light_list = [objects.Light(wl, max_order_PWs=10, theta=p, phi=0.0) for p in azi
 period = 700
 
 superstrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Air, loss=False, world_1d=True
+	period,
+	height_nm="semi_inf",
+	material=materials.Air,
+	loss=False,
+	world_1d=True,
 )
 
 substrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Air, loss=False, world_1d=True
+	period,
+	height_nm="semi_inf",
+	material=materials.Air,
+	loss=False,
+	world_1d=True,
 )
 
 absorber = objects.ThinFilm(
-    period,
-    height_nm=10,
-    material=materials.Material(1.0 + 0.05j),
-    loss=True,
-    world_1d=True,
+	period,
+	height_nm=10,
+	material=materials.Material(1.0 + 0.05j),
+	loss=True,
+	world_1d=True,
 )
 
 grating_1 = objects.NanoStruct(
-    "1D_array",
-    period,
-    int(round(0.75 * period)),
-    height_nm=2900,
-    background=materials.Material(1.46 + 0.0j),
-    inclusion_a=materials.Material(3.61 + 0.0j),
-    loss=True,
-    lc_bkg=0.005,
+	"1D_array",
+	period,
+	int(round(0.75 * period)),
+	height_nm=2900,
+	background=materials.Material(1.46 + 0.0j),
+	inclusion_a=materials.Material(3.61 + 0.0j),
+	loss=True,
+	lc_bkg=0.005,
 )
 
 
 def simulate_stack(light):
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	sim_absorber = absorber.calc_modes(light)
+	sim_grating_1 = grating_1.calc_modes(light)
 
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    sim_absorber = absorber.calc_modes(light)
-    sim_grating_1 = grating_1.calc_modes(light)
-
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
 
-    stack = Stack((sim_substrate, sim_absorber, sim_grating_1, sim_superstrate))
-    stack.calc_scat(pol="TE")
+	stack = Stack(
+		(sim_substrate, sim_absorber, sim_grating_1, sim_superstrate)
+	)
+	stack.calc_scat(pol="TE")
 
-    return stack
+	return stack
 
 
 # Run in parallel across wavelengths.
@@ -121,14 +131,8 @@ plotting.t_r_a_plots(stacks_list, xvalues=azi_angles)
 # Calculate and record the (real) time taken for simulation
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 
 python_log = open("python_log.log", "w")
 python_log.write(hms_string)

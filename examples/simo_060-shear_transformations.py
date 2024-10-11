@@ -17,13 +17,12 @@
 
 
 """
-Shear transformations
+Shear transformations.
 ==========================
 
 Here we introduce a shear transformation to shift layers relative to one
 another in the plane.
 """
-
 
 import datetime
 import time
@@ -46,73 +45,83 @@ plotting.clear_previous()
 ################ Light parameters #####################
 azi_angles = np.linspace(0, 20, 5)
 wl = 1600
-light_list = [objects.Light(wl, max_order_PWs=2, theta=p, phi=0.0) for p in azi_angles]
+light_list = [
+	objects.Light(wl, max_order_PWs=2, theta=p, phi=0.0) for p in azi_angles
+]
 
 ################ Grating parameters #####################
 period = 760
 
 superstrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Air, world_1d=True, loss=False
+	period,
+	height_nm="semi_inf",
+	material=materials.Air,
+	world_1d=True,
+	loss=False,
 )
 
 substrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Air, world_1d=True, loss=False
+	period,
+	height_nm="semi_inf",
+	material=materials.Air,
+	world_1d=True,
+	loss=False,
 )
 
 grating_1 = objects.NanoStruct(
-    "1D_array",
-    period,
-    small_space=period / 2,
-    diameter1=int(round(0.25 * period)),
-    diameter2=int(round(0.25 * period)),
-    height_nm=150,
-    inclusion_a=materials.Material(3.61 + 0.0j),
-    inclusion_b=materials.Material(3.61 + 0.0j),
-    background=materials.Material(1.46 + 0.0j),
-    loss=True,
-    make_mesh_now=True,
-    force_mesh=False,
-    lc_bkg=0.05,
-    lc2=1.0,
+	"1D_array",
+	period,
+	small_space=period / 2,
+	diameter1=int(round(0.25 * period)),
+	diameter2=int(round(0.25 * period)),
+	height_nm=150,
+	inclusion_a=materials.Material(3.61 + 0.0j),
+	inclusion_b=materials.Material(3.61 + 0.0j),
+	background=materials.Material(1.46 + 0.0j),
+	loss=True,
+	make_mesh_now=True,
+	force_mesh=False,
+	lc_bkg=0.05,
+	lc2=1.0,
 )
 
 grating_2 = objects.NanoStruct(
-    "1D_array",
-    period,
-    int(round(0.75 * period)),
-    height_nm=2900,
-    background=materials.Material(1.46 + 0.0j),
-    inclusion_a=materials.Material(3.61 + 0.0j),
-    loss=True,
-    make_mesh_now=True,
-    force_mesh=False,
-    lc_bkg=0.05,
-    lc2=1.0,
+	"1D_array",
+	period,
+	int(round(0.75 * period)),
+	height_nm=2900,
+	background=materials.Material(1.46 + 0.0j),
+	inclusion_a=materials.Material(3.61 + 0.0j),
+	loss=True,
+	make_mesh_now=True,
+	force_mesh=False,
+	lc_bkg=0.05,
+	lc2=1.0,
 )
 
 num_BMs = 60
 
 
 def simulate_stack(light):
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    sim_grating_1 = grating_1.calc_modes(light, num_BMs=num_BMs)
-    sim_grating_2 = grating_2.calc_modes(light, num_BMs=num_BMs)
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	sim_grating_1 = grating_1.calc_modes(light, num_BMs=num_BMs)
+	sim_grating_2 = grating_2.calc_modes(light, num_BMs=num_BMs)
 
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
 
-    # Shear is relative to top layer (ie incident light) and in units of d.
-    stack = Stack(
-        (sim_substrate, sim_grating_1, sim_grating_2, sim_superstrate),
-        shears=([(0.1,), (-0.3,), (0.2,)]),
-    )
-    stack.calc_scat(pol="TE")
+	# Shear is relative to top layer (ie incident light) and in units of d.
+	stack = Stack(
+		(sim_substrate, sim_grating_1, sim_grating_2, sim_superstrate),
+		shears=([(0.1,), (-0.3,), (0.2,)]),
+	)
+	stack.calc_scat(pol="TE")
 
-    return stack
+	return stack
 
 
 # Run in parallel across wavelengths.
@@ -127,14 +136,8 @@ plotting.t_r_a_plots(stacks_list)
 # Calculate and record the (real) time taken for simulation
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 
 python_log = open("python_log.log", "w")
 python_log.write(hms_string)

@@ -17,7 +17,7 @@
 
 
 """
-Single interface dispersive
+Single interface dispersive.
 ===========================
 
 Simulating an interface between 2 homogeneous, dispersive media.
@@ -51,7 +51,8 @@ no_wl_1 = 4
 # Air with n_inc = 1.0).
 wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
 light_list = [
-    objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0) for wl in wavelengths
+	objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0)
+	for wl in wavelengths
 ]
 
 #######################################################
@@ -61,25 +62,27 @@ period = 300
 #######################################################
 # Define each layer of the structure, now with dispersive media.
 # The refractive indices are interpolated from tabulated data.
-superstrate = objects.ThinFilm(period, height_nm="semi_inf", material=materials.Air)
+superstrate = objects.ThinFilm(
+	period, height_nm="semi_inf", material=materials.Air
+)
 substrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.SiO2
+	period, height_nm="semi_inf", material=materials.SiO2
 )  # Amorphous silica
 
 
 def simulate_stack(light):
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
 
-    stack = Stack((sim_substrate, sim_superstrate))
-    stack.calc_scat(pol="TM")  # This time TM polarised light is incident.
+	stack = Stack((sim_substrate, sim_superstrate))
+	stack.calc_scat(pol="TM")  # This time TM polarised light is incident.
 
-    return stack
+	return stack
 
 
 #######################################################
@@ -111,14 +114,8 @@ print("\n*******************************************")
 # Calculate and record the (real) time taken for simulation,
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 print(hms_string)
 print("*******************************************")
 print("")

@@ -17,7 +17,7 @@
 
 
 """
-Single interface
+Single interface.
 =================
 
 Simulating an interface between 2 homogeneous, non-dispersive media.
@@ -50,8 +50,8 @@ wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
 # Fields in homogeneous layers are expressed in a Fourier series of diffraction
 # orders,where all orders within a radius of max_order_PWs in k-space are included.
 light_list = [
-    objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0, n_inc=1.5)
-    for wl in wavelengths
+	objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0, n_inc=1.5)
+	for wl in wavelengths
 ]
 
 #######################################################
@@ -63,10 +63,10 @@ period = 300
 #######################################################
 # Define each layer of the structure.
 superstrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Material(1.5 + 0.0j)
+	period, height_nm="semi_inf", material=materials.Material(1.5 + 0.0j)
 )
 substrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Material(3.0 + 0.0j)
+	period, height_nm="semi_inf", material=materials.Material(3.0 + 0.0j)
 )
 
 
@@ -76,20 +76,20 @@ substrate = objects.ThinFilm(
 
 
 def simulate_stack(light):
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
 
-    stack = Stack((sim_substrate, sim_superstrate))
-    # Calculate scattering matrices of the stack (for all polarisations).
-    stack.calc_scat(pol="TE")  # Incident light has TE polarisation,
-    # which only effects the net transmission etc, not the matrices.
+	stack = Stack((sim_substrate, sim_superstrate))
+	# Calculate scattering matrices of the stack (for all polarisations).
+	stack.calc_scat(pol="TE")  # Incident light has TE polarisation,
+	# which only effects the net transmission etc, not the matrices.
 
-    return stack
+	return stack
 
 
 stacks_list = list(map(simulate_stack, light_list))
@@ -168,14 +168,8 @@ print("\n*******************************************")
 # Calculate and record the (real) time taken for simulation,
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 print(hms_string)
 print("*******************************************")
 print("")

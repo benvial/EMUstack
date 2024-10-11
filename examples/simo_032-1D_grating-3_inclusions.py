@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-1D grating with 3 inclusions
+1D grating with 3 inclusions.
 ============================
 
 Simulating a lamellar grating that is periodic in x only.
@@ -49,7 +49,8 @@ wl_2 = 800
 no_wl_1 = 2
 wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
 light_list = [
-    objects.Light(wl, max_order_PWs=5, theta=0.0, phi=0.0) for wl in wavelengths
+	objects.Light(wl, max_order_PWs=5, theta=0.0, phi=0.0)
+	for wl in wavelengths
 ]
 
 # The period must be consistent throughout a simulation!
@@ -59,11 +60,11 @@ period = 300
 # We need to inform EMUstack at this point that all layers in the stack will
 # be at most be periodic in one dimension (i.e. there are no '2D_arrays's).
 superstrate = objects.ThinFilm(
-    period, height_nm="semi_inf", world_1d=True, material=materials.Air
+	period, height_nm="semi_inf", world_1d=True, material=materials.Air
 )
 
 substrate = objects.ThinFilm(
-    period, height_nm="semi_inf", world_1d=True, material=materials.Air
+	period, height_nm="semi_inf", world_1d=True, material=materials.Air
 )
 # Define 1D grating that is periodic in x and contains 3 interleaved inclusions.
 # Inclusion_a is in the center of the unit cell. Inclusions 2 and 3 have
@@ -72,51 +73,51 @@ substrate = objects.ThinFilm(
 # seperated by period/(# inclusions) so in this case perid/3.
 # See Fortran Backends section of tutorial for more details.
 grating = objects.NanoStruct(
-    "1D_array",
-    period,
-    int(round(0.05 * period)),
-    diameter2=int(round(0.17 * period)),
-    diameter3=int(round(0.03 * period)),
-    diameter4=int(round(0.07 * period)),
-    height_nm=2900,
-    background=materials.Material(1.46 + 0.0j),
-    inclusion_a=materials.Material(5.0 + 0.0j),
-    inclusion_b=materials.Material(3.0 + 0.0j),
-    loss=True,
-    lc_bkg=0.0071,
+	"1D_array",
+	period,
+	int(round(0.05 * period)),
+	diameter2=int(round(0.17 * period)),
+	diameter3=int(round(0.03 * period)),
+	diameter4=int(round(0.07 * period)),
+	height_nm=2900,
+	background=materials.Material(1.46 + 0.0j),
+	inclusion_a=materials.Material(5.0 + 0.0j),
+	inclusion_b=materials.Material(3.0 + 0.0j),
+	loss=True,
+	lc_bkg=0.0071,
 )
 # To instead seperate the inclusions with an equal distance between their edges use
 # the Keyword Arg edge_spacing = True.
 grating = objects.NanoStruct(
-    "1D_array",
-    period,
-    int(round(0.15 * period)),
-    diameter2=int(round(0.27 * period)),
-    diameter3=int(round(0.03 * period)),
-    edge_spacing=True,
-    height_nm=2900,
-    background=materials.Material(1.46 + 0.0j),
-    inclusion_a=materials.Material(5.0 + 0.0j),
-    inclusion_b=materials.Material(3.0 + 0.0j),
-    loss=True,
-    lc_bkg=0.0071,
+	"1D_array",
+	period,
+	int(round(0.15 * period)),
+	diameter2=int(round(0.27 * period)),
+	diameter3=int(round(0.03 * period)),
+	edge_spacing=True,
+	height_nm=2900,
+	background=materials.Material(1.46 + 0.0j),
+	inclusion_a=materials.Material(5.0 + 0.0j),
+	inclusion_b=materials.Material(3.0 + 0.0j),
+	loss=True,
+	lc_bkg=0.0071,
 )
 
 
 def simulate_stack(light):
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_grating = grating.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_grating = grating.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
 
-    stack = Stack((sim_substrate, sim_grating, sim_superstrate))
-    stack.calc_scat(pol="TE")
+	stack = Stack((sim_substrate, sim_grating, sim_superstrate))
+	stack.calc_scat(pol="TE")
 
-    return stack
+	return stack
 
 
 pool = Pool(num_cores)
@@ -134,14 +135,8 @@ print("\n*******************************************")
 # Calculate and record the (real) time taken for simulation,
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 print(hms_string)
 print("*******************************************")
 print("")

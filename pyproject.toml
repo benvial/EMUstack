@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
 keywords = ["photonics"]
-authors = [ { name = "Björn Sturmberg" }]
+authors = [{ name = "Björn Sturmberg" }]
 classifiers = [
   "Development Status :: 1 - Planning",
   "Programming Language :: Python",
@@ -29,15 +29,10 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Mathematics",
   "Topic :: Utilities",
 ]
+dependencies = ["numpy >= 1.20", "scipy >= 0.18.0", "matplotlib"]
 
-dependencies = [
-    "numpy >= 1.20",
-    "scipy >= 0.18.0",
-    "matplotlib",
-]
 [tool.setuptools]
 packages = ["emustack"]
-
 
 [project.optional-dependencies]
 test = [
@@ -49,15 +44,36 @@ test = [
   "coverage",
 ]
 doc = [
-    "MarkupSafe",
-    "Sphinx",
-    "pydata-sphinx-theme",
-    "sphinx-gallery",
-    "sphinx-copybutton",
-    "memory_profiler",
+  "MarkupSafe",
+  "Sphinx",
+  "pydata-sphinx-theme",
+  "sphinx-gallery",
+  "sphinx-copybutton",
+  "memory_profiler",
 ]
-all = ["emustack[test,doc]"]
-
+dev = ["ruff"]
+all = ["emustack[test,doc,dev]"]
 
 [tool.pytest.ini_options]
 addopts = "--cov=emustack --cov-report html --cov-report term"
+
+[tool.ruff]
+# Set the maximum line length to 79.
+line-length = 79
+
+[tool.ruff.lint]
+extend-select = [
+  "E501", #line-too-long
+  "UP", # pyupgrade
+  "D", # pydocstyle
+
+]
+ignore = ["D206"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+docstring-code-format = true

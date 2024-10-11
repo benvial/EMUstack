@@ -17,12 +17,11 @@
 
 
 """
-Plotting fields for 2d arrays
+Plotting fields for 2d arrays.
 ===================================
 
 Show how to plot electric fields.
 """
-
 
 import datetime
 import time
@@ -50,49 +49,50 @@ light_list = [objects.Light(wl, max_order_PWs=2, theta=0.0, phi=0.0)]
 period = 600
 
 superstrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Air, loss=False
+	period, height_nm="semi_inf", material=materials.Air, loss=False
 )
 
 substrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Air, loss=False
+	period, height_nm="semi_inf", material=materials.Air, loss=False
 )
 
-spacer = objects.ThinFilm(period, height_nm=200, material=materials.SiO2, loss=True)
+spacer = objects.ThinFilm(
+	period, height_nm=200, material=materials.SiO2, loss=True
+)
 
 NW_diameter = 120
 NW_array = objects.NanoStruct(
-    "2D_array",
-    period,
-    NW_diameter,
-    height_nm=2330,
-    inclusion_a=materials.Si_c,
-    background=materials.Air,
-    loss=True,
-    make_mesh_now=True,
-    force_mesh=True,
-    lc_bkg=0.2,
-    lc2=2.0,
-    plotting_fields=True,
+	"2D_array",
+	period,
+	NW_diameter,
+	height_nm=2330,
+	inclusion_a=materials.Si_c,
+	background=materials.Air,
+	loss=True,
+	make_mesh_now=True,
+	force_mesh=True,
+	lc_bkg=0.2,
+	lc2=2.0,
+	plotting_fields=True,
 )
 
 
 def simulate_stack(light):
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	sim_NWs = NW_array.calc_modes(light)
+	sim_spacer = spacer.calc_modes(light)
 
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    sim_NWs = NW_array.calc_modes(light)
-    sim_spacer = spacer.calc_modes(light)
-
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
 
-    stack = Stack((sim_substrate, sim_spacer, sim_NWs, sim_superstrate))
-    stack.calc_scat(pol="TE")
+	stack = Stack((sim_substrate, sim_spacer, sim_NWs, sim_superstrate))
+	stack.calc_scat(pol="TE")
 
-    return stack
+	return stack
 
 
 # Run in parallel across wavelengths.
@@ -124,21 +124,15 @@ plotting.fields_3d(stacks_list, lay_interest=2)
 
 # Save electric field values (all components) at a list of selected point.
 plotting.field_values(
-    stacks_list, lay_interest=0, xyz_values=[(4.0, 2.5, 7.0), (1.0, 1.5, 3.0)]
+	stacks_list, lay_interest=0, xyz_values=[(4.0, 2.5, 7.0), (1.0, 1.5, 3.0)]
 )
 
 ######################## Wrapping up ########################
 # Calculate and record the (real) time taken for simulation
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 
 python_log = open("python_log.log", "w")
 python_log.write(hms_string)

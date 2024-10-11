@@ -17,7 +17,7 @@
 
 
 """
-Combining 1D and 2D arrays
+Combining 1D and 2D arrays.
 ==========================
 
 Combining 1D gratings and 2D arrays in the same stack.
@@ -48,7 +48,8 @@ no_wl_1 = 1
 # Set up light objects
 wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
 light_list = [
-    objects.Light(wl, max_order_PWs=2, theta=0.0, phi=0.0) for wl in wavelengths
+	objects.Light(wl, max_order_PWs=2, theta=0.0, phi=0.0)
+	for wl in wavelengths
 ]
 
 
@@ -60,60 +61,59 @@ period = 600
 num_BMs = 111
 
 superstrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.Air, loss=False
+	period, height_nm="semi_inf", material=materials.Air, loss=False
 )
 
 substrate = objects.ThinFilm(
-    period, height_nm="semi_inf", material=materials.SiO2, loss=False
+	period, height_nm="semi_inf", material=materials.SiO2, loss=False
 )
 
 NW_diameter = 120
 NW_array = objects.NanoStruct(
-    "2D_array",
-    period,
-    NW_diameter,
-    height_nm=2330,
-    inclusion_a=materials.Si_c,
-    background=materials.Air,
-    loss=True,
-    make_mesh_now=True,
-    force_mesh=True,
-    lc_bkg=0.1,
-    lc2=2.0,
+	"2D_array",
+	period,
+	NW_diameter,
+	height_nm=2330,
+	inclusion_a=materials.Si_c,
+	background=materials.Air,
+	loss=True,
+	make_mesh_now=True,
+	force_mesh=True,
+	lc_bkg=0.1,
+	lc2=2.0,
 )
 
 # We now create a 1D grating that is periodic in x only, but whose scattering
 # matrices are constructed with of the 2D plane wave basis. This allows this layer
 # to be combined with 2D_arrays.
 grating = objects.NanoStruct(
-    "1D_array",
-    period,
-    int(round(0.75 * period)),
-    height_nm=2900,
-    background=materials.Material(1.46 + 0.0j),
-    inclusion_a=materials.Material(5.0 + 0.0j),
-    loss=True,
-    lc_bkg=0.1,
-    world_1d=False,
+	"1D_array",
+	period,
+	int(round(0.75 * period)),
+	height_nm=2900,
+	background=materials.Material(1.46 + 0.0j),
+	inclusion_a=materials.Material(5.0 + 0.0j),
+	loss=True,
+	lc_bkg=0.1,
+	world_1d=False,
 )
 
 
 def simulate_stack(light):
+	################ Evaluate each layer individually ##############
+	sim_superstrate = superstrate.calc_modes(light)
+	sim_substrate = substrate.calc_modes(light)
+	sim_NWs = NW_array.calc_modes(light, num_BMs=num_BMs)
 
-    ################ Evaluate each layer individually ##############
-    sim_superstrate = superstrate.calc_modes(light)
-    sim_substrate = substrate.calc_modes(light)
-    sim_NWs = NW_array.calc_modes(light, num_BMs=num_BMs)
-
-    ###################### Evaluate structure ######################
-    """ Now define full structure. Here order is critical and
+	###################### Evaluate structure ######################
+	""" Now define full structure. Here order is critical and
         stack list MUST be ordered from bottom to top!
     """
 
-    stack = Stack((sim_substrate, sim_NWs, sim_superstrate))
-    stack.calc_scat(pol="TE")
+	stack = Stack((sim_substrate, sim_NWs, sim_superstrate))
+	stack.calc_scat(pol="TE")
 
-    return stack
+	return stack
 
 
 # Run in parallel across wavelengths.
@@ -135,14 +135,8 @@ plotting.omega_plot(stacks_list, wavelengths)
 # Calculate and record the (real) time taken for simulation
 elapsed = time.time() - start
 hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = (
-    "Total time for simulation was \n \
-    %(hms)s (%(elapsed)12.3f seconds)"
-    % {
-        "hms": hms,
-        "elapsed": elapsed,
-    }
-)
+hms_string = f"Total time for simulation was \n \
+    {hms} ({elapsed:12.3f} seconds)"
 
 python_log = open("python_log.log", "w")
 python_log.write(hms_string)
