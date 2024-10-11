@@ -86,8 +86,8 @@ class Modes:
 
 	def shear_transform(self, coords):
 		"""Shear transformation.
-		
-		Return the matrix Q corresponding to a shear transformation 
+
+		Return the matrix Q corresponding to a shear transformation
 		to coordinats coords.
 		"""
 		alphas = np.append(self.air_ref().alphas, self.air_ref().alphas)
@@ -103,8 +103,8 @@ class Modes:
 		"""
 		Clean up _interfaces_i_have_known to avoid memory leak.
 
-		We don't want to leave a reference to self in 
-		_interfaces_i_have_known, or it won't get garbage collected. 
+		We don't want to leave a reference to self in
+		_interfaces_i_have_known, or it won't get garbage collected.
 		"""
 		if _interfaces_i_have_known is not None:
 			for key in _interfaces_i_have_known.copy().keys():
@@ -291,8 +291,8 @@ class Simmo(Modes):
 
 	def calc_modes(self, num_BMs=None):
 		"""Calculate modes.
-		
-		Run a Fortran FEM calculation to find the modes of a 
+
+		Run a Fortran FEM calculation to find the modes of a
 		structured layer.
 		"""
 		st = self.structure

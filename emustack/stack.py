@@ -64,7 +64,7 @@ class Stack:
 
 	def heights_nm(self):
 		"""Update heights.
-		
+
 		Update heights of each layer to those given in Keyword Arg
 		'heights_nm'. If no heights specified in Stack, the heights of
 		each layer object are used.
@@ -87,84 +87,6 @@ class Stack:
 	def structures(self):
 		"""Return :NanoStruct: or :ThinFilm: object of each layer."""
 		return (lay.structure for lay in self.layers)
-
-	# def calc_R_T_net(self, save_working = True):
-	#     """ Calculate the scattering matrices for the stack as a whole.
-
-	#         INPUTS:
-
-	#         - `save_working` : If `True`, then store net reflection
-	#             and transmission matrices at each part of the stack, in
-	#             `self.R_net_list` and `self.T_net_list`, ordered with
-	#             the reflection and transmission of the first/topmost
-	#             finitely thick layer first.
-
-	#         OUTPUTS:
-
-	#         - `R_net` : Net reflection matrix
-
-	#         - `T_net` : Net transmission matrix.
-	#     """
-	#     self._check_periods_are_consistent()
-
-	#     if save_working:
-	#         self.R_net_list, self.T_net_list = [], []
-
-	#     # TODO: swap order of layers
-	#     # Reflection and transmission at bottom of structure
-	#     R_net, T_net = r_t_mat(self.layers[1], self.layers[0])[:2]
-
-	#     lays = self.layers
-	#     for lay, lay_t, h in zip(lays[1:-1], lays[2:], self.heights_norm()):
-	#         if save_working:
-	#             self.R_net_list.insert(0, R_net)
-	#             self.T_net_list.insert(0, T_net)
-
-	#         # lay (2) is the layer we're in right now
-	#         # lay_t (1) is the layer above it
-	#         # tf = T in forwards direction (down into lay)
-	#         R12, T12, R21, T21 = r_t_mat(lay_t, lay)
-	#         P = lay.prop_fwd(h)
-	#         idm = np.eye(len(P))
-
-	#         # Matrix that maps vector of forward modes in medium 1
-	#         # at 1-2 interface, to fwd modes in medium 2 at 2-3 interface
-	#         # P * (I - R21 * P * R2net * P)^-1 * T12
-	#         f12 = P * np.linalg.solve(idm - R21 * P * R_net * P, T12)
-	#         T_net = T_net * f12
-	#         R_net = R12 + T21 * P * R_net * f12
-
-	#     self.R_net, self.T_net = R_net, T_net
-	#     return self.R_net, self.T_net
-
-	# def calc_lay_amplitudes(self, incoming_amplitudes):
-	#     """ Return the mode amplitudes at the bottom of each layer.
-
-	#         OUTPUTS:
-
-	#         - `f_down_list` : List of vectors of amplitudes of
-	#             downwards/forward modes
-
-	#         - `f_up_list` : Amplitudes of upwards/backward modes
-
-	#         Both lists start with the amplitudes in the first finitely-
-	#         thick layer.
-
-	#         N.B. this is numerically unstable when T_net is nearly singular.
-	#         This could be overcome by looping through the interfaces once more
-	#         iteratively to find f_down_list and f_up_list.
-	#     """
-	#     # Calculate the amplitudes of transmitted modes using T_net
-	#     f_out = self.T_net * incoming_amplitudes
-
-	#     # Now work backwards to find what incident field at each interface
-	#     # leads to this superposition of transmitted modes.
-	#     f_down_list = [np.linalg.solve(T_net_l, out) for T_net_l in self.T_net_list]
-
-	#     # And from these, we can use each R_net to find the upward amplitudes
-	#     f_up_list  = [R * f_d for R, f_d in zip(self.R_net_list, f_down_list)]
-
-	#     return f_down_list, f_up_list
 
 	def calc_scat(
 		self,
@@ -193,8 +115,8 @@ class Stack:
 		    save_scat_list  (bool): If True, save tnet_list, rnet_list
 		        as property of stack for later access.
 		"""
-		# Can check this against lines ~ 127 in J_overlap.f E components are TE, have diffraction
-		# orders along beta, which is along y.
+		# Can check this against lines ~ 127 in J_overlap.f E components
+		# are TE, have diffraction orders along beta, which is along y.
 
 		# TODO: Switch to calc_R_T_net, which does not use infinitesimal air
 		# layers. This will require rewriting the parts that calculate fluxes
@@ -323,8 +245,8 @@ class Stack:
 			self.vec_coef_up = vec_coef_up
 
 			# Start by composing U matrix which is same for all air layers.
-			# It is a diagonal matrix with 1 for propagating, i for evanescent TE
-			# & -i for evanescent TM plane wave orders.
+			# It is a diagonal matrix with 1 for propagating,
+			# i for evanescent TE & -i for evanescent TM plane wave orders.
 
 			U_mat = np.array(np.zeros((2 * PW_pols, 2 * PW_pols), complex))
 			for i in range(0, num_prop_air):
@@ -401,7 +323,9 @@ class Stack:
 					down_fluxes.append(flux_TE + flux_TM)
 				else:
 					print(
-						"Warning: there are no propagating modes in the semi-inf \n substrate therefore cannot calculate energy fluxes here."
+						"Warning: there are no propagating modes "
+						"in the semi-infinite substrate therefore "
+						"CANNOT CALCULATE ENERGY FLUXES ANYWHERE."
 					)
 
 				num_prop_in = self.layers[-1].num_prop_pw_per_pol
@@ -438,7 +362,9 @@ class Stack:
 					self.r_list = np.zeros(len(self.layers) - 2)
 					self.t_list = np.zeros(len(self.layers) - 2)
 					print(
-						"Warning: there are no propagating modes in the semi-inf \n superstrate therefore CANNOT CALCULATE ENERGY FLUXES ANYWHERE."
+						"Warning: there are no propagating modes "
+						"in the semi-infinite superstrate therefore "
+						"CANNOT CALCULATE ENERGY FLUXES ANYWHERE."
 					)
 
 			else:

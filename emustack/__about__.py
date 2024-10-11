@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
+"""Package metadata."""
 
 import importlib.metadata as metadata
 
 
-def get_meta(metadata):
+def _get_meta(metadata):
 	data = metadata.metadata("emustack")
 	__version__ = metadata.version("emustack")
 	__author__ = data.get("author")
@@ -12,4 +13,4 @@ def get_meta(metadata):
 	return __version__, __author__, __description__, data
 
 
-__version__, __author__, __description__, data = get_meta(metadata)
+__version__, __author__, __description__, data = _get_meta(metadata)

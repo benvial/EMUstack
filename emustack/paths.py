@@ -1,4 +1,5 @@
-"""
+"""Paths setup.
+
 paths.py contais all the relevant paths for the operation of the
 code. When path are assigned their default values, EMUstack code
 can only be executed from 'EMUstack/subfolder'. An appropriate

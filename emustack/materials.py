@@ -1,4 +1,5 @@
-"""
+"""Material properties.
+
 materials.py is a subroutine of EMUstack that defines Material objects,
 these represent dispersive lossy refractive indices and possess
 methods to interpolate n from tabulated data.
@@ -19,7 +20,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import interp1d
@@ -135,7 +135,8 @@ class Material:
 			self.data_wls = None
 			self.data_ns = n
 		elif np.shape(n) == (3,):
-			# we will calculate n from the Drude model with input omega_p, omega_g, eps_inf values
+			# we will calculate n from the Drude model with input 
+			# omega_p, omega_g, eps_inf values
 			c = 299792458
 			omega_plasma = n[0]
 			omega_gamma = n[1]
@@ -209,6 +210,20 @@ class Material:
 
 
 def plot_n_data(data_name):
+	"""
+	Plot refractive index data for a given material.
+
+	Parameters
+	----------
+	data_name : str
+		Name of the material to plot, without the ".txt" extension.
+
+	Notes
+	-----
+	This function will save a plot to a file with the name
+	"{data_name}_n.pdf". The plot will have real(n) on the left y-axis
+	and imaginary(n) on the right y-axis.
+	"""
 	data = np.loadtxt(data_location + f"{data_name}.txt")
 	wls = data[:, 0]
 	Re_n = data[:, 1]
@@ -347,6 +362,7 @@ Perovskite_b2b = Material(np.loadtxt(f"{data_location}Perovskite_b2b_nk.txt"))
 # The above data for n, k data just for band to band transitions
 # http://pubs.acs.org/doi/suppl/10.1021/acs.jpclett.5b00044/suppl_file/jz5b00044_si_001.pdf
 Ge_Doped = Material(np.loadtxt(f"{data_location}Ge_Doped.txt"))
-# doi:10.1109/IRMMW-THz.2014.6956438, heavily doped Germanium for mid-infrared plasmonics
+# doi:10.1109/IRMMW-THz.2014.6956438, heavily doped Germanium for 
+# mid-infrared plasmonics
 ITO_annealed = Material(np.loadtxt(f"{data_location}ITO_anneal_Gen_Osc.txt"))
 # ANU measurement
