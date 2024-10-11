@@ -2637,7 +2637,7 @@ def fields_in_plane(
 					plt.suptitle(
 						f"{name_lay} \n {re_im}_E_xy_slice, z = {z1[z_of_xy]},"
 						+ f" heights = {heights_list} \n"
-						+ f"$\lambda$ = {wl:.2f} nm, "
+						+ rf"$\lambda$ = {wl:.2f} nm, "
 						+ f"period = {period:.2f}, PW = {pw},"
 						+ "\n"
 						+ f"# prop. ords = {prop}, # evan. "

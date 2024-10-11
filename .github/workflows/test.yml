@@ -1,0 +1,28 @@
+name: Test
+run-name: ${{ github.repository }} testing
+on: [push]
+jobs:
+  install-and-test:
+    strategy:
+      matrix:
+        python_version: [3.12] #3.8, 3.9, 3.10, 3.11, 
+        os: [ubuntu-latest] #, windows-latest
+    runs-on: ${{ matrix.os }}
+    env:
+      OPENBLAS_NUM_THREADS: 1
+      OMP_NUM_THREADS: 1
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Install system packages
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          apt-get install -y --no-install-recommends  \
+          python3-full python3-pip python3-dev gfortran make pkg-config cmake \
+          libsuitesparse-dev liblapack-dev libopenblas-dev
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+      - run: pip install -e .[test] -v --no-build-isolation
+      - run: pytest
