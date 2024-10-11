@@ -25,8 +25,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python_version }}
-      - run: |
+      - name: Install package and run tests
+        run: |
           python -m venv .venv
           source .venv/bin/activate
+          pip install meson-python
           pip install -e .[test] --no-build-isolation -v
           pytest
