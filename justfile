@@ -15,7 +15,7 @@ fortran:
     cd emustack/fortran && make clean && make
 
 clean:
-    rm -rf builddir .coverage *.egg-info docs/build .pytest_cache htmlcov
+    rm -rf builddir .coverage *.egg-info docs/build .pytest_cache htmlcov .ruff_cache
     cd docs && make clean
 
 clean-fortran:
