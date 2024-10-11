@@ -19,8 +19,8 @@ jobs:
         run: |
           sudo apt-get update -q
           sudo apt-get install -q -y --no-install-recommends  \
-          gfortran make pkg-config cmake \
-          libsuitesparse-dev suitesparse liblapack-dev libopenblas-dev
+          gfortran make cmake \
+          libsuitesparse-dev liblapack-dev libopenblas-dev
       - name: Install Python
         uses: actions/setup-python@v5
         with:
