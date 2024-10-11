@@ -10,7 +10,7 @@ fortran:
     cd emustack/fortran && make clean && make
 
 clean:
-	rm -rf builddir .coverage *.egg-info docs/build .pytest_cache
+	rm -rf builddir .coverage *.egg-info docs/build .pytest_cache htmlcov
 
 clean-fortran:
     cd emustack/fortran && make purge

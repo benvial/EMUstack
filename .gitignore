@@ -31,3 +31,4 @@ docs/build
 __pycache__
 .coverage
 emustack/fortran/lib/*.o
+htmlcov
