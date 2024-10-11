@@ -51,7 +51,7 @@ doc = [
   "sphinx-copybutton",
   "memory_profiler",
 ]
-dev = ["ruff", "meson-python"]
+dev = ["ruff", "meson-python", "ninja"]
 all = ["emustack[test,doc,dev]"]
 
 [tool.pytest.ini_options]
