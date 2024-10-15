@@ -53,6 +53,6 @@ jobs:
           post-cleanup: 'all'
       - name: Install package and run tests
         run: |
-          mamba install python=${{ matrix.python-version }}
+          micromamba install python=${{ matrix.python-version }}
           pip install .[test] -v
           pytest
