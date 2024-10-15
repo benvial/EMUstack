@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install -y --no-install-recommends  \
-    python3-full python3-pip python3-dev gfortran make pkg-config cmake \
+    python3-full python3-pip python3-dev gcc gfortran make pkg-config cmake \
     libsuitesparse-dev liblapack-dev libopenblas-dev && \
     rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log;
 COPY ./ /home/EMUstack/
