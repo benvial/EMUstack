@@ -5,8 +5,8 @@ jobs:
   install-and-test:
     strategy:
       matrix:
-        python_version: [3.11] #3.8, 3.9, 3.10, 3.11, 
-        os: [ubuntu-24.04] #, windows-latest
+        python_version: [3.12] #3.8, 3.9, 3.10, 3.11, 
+        os: [ubuntu-latest] #, windows-latest
     runs-on: ${{ matrix.os }}
     env:
       OPENBLAS_NUM_THREADS: 1
