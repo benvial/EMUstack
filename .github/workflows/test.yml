@@ -48,8 +48,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
       - name: Install package and run tests
         run: |
-          conda install mamba
-          mamba env create -n emustack python=${{ matrix.python-version }}
-          mamba env update -n emustack -f environment.yml
+          conda install mamba -c conda-forge
+          mamba env create -n emustack python=${{ matrix.python-version }} -c conda-forge
+          mamba env update -n emustack -f environment.yml -c conda-forge
           pip install .[test] -v
           pytest
