@@ -1,6 +1,6 @@
 
 
-## finding suitesparse this way
+## finding suitesparse the dependency way
 ss_dep =  dependency('suitesparse', required:false)
 if ss_dep.found() == false
   # find suitesparse installed with conda/mamba
@@ -11,9 +11,7 @@ if ss_dep.found() == false
       check : true
   ).stdout().strip()
   inc_ss = incdir_python + '/suitesparse'
-  if run_command('[', '-d', inc_ss, ']').returncode() == 0
-      message('directory exists')
-  else
+  if run_command('[', '-d', inc_ss, ']').returncode() != 0
     inc_ss = '/usr/include/suitesparse'
   endif
   ss_dep = declare_dependency(dependencies : [ umfpack_dep_tmp ],
