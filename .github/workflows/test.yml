@@ -17,7 +17,7 @@ jobs:
       - name: Install system packages
         if: matrix.os == 'ubuntu-latest'
         run: |
-          apt-get update && apt-get install -y --no-install-recommends  \
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends  \
           gfortran gcc make cmake \
           libsuitesparse-dev liblapack-dev libopenblas-dev
       - name: Install Python
