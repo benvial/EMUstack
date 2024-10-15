@@ -46,10 +46,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Install conda
         uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
       - name: Install package and run tests
         run: |
-          conda install mamba -c conda-forge
-          mamba env create -n emustack python=${{ matrix.python-version }} -c conda-forge
-          mamba env update -n emustack -f environment.yml -c conda-forge
+          conda install mambapython-version
+          mamba env create -n emustack python=${{ matrix.python-version }}python-version
+          mamba env update -n emustack -f environment.ymlpython-version
+          mamba activate emustack
           pip install .[test] -v
           pytest
