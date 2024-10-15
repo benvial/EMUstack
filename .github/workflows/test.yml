@@ -44,15 +44,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - uses: mamba-org/setup-micromamba@v1
-        with:
-          environment-file: environment.yml
-          init-shell: >-
-            bash
-          cache-environment: true
-          post-cleanup: 'all'
       - name: Install package and run tests
+        uses: conda-incubator/setup-miniconda@v3
         run: |
-          micromamba install python=${{ matrix.python-version }}
+          conda install mamba
+          mamba env create -n emustack python=${{ matrix.python-version }}
+          mamba env update -n emustack -f environment.yml
           pip install .[test] -v
           pytest
