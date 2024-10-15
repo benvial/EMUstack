@@ -3,6 +3,7 @@ run-name: ${{ github.repository }} testing
 on: [push]
 jobs:
   install-and-test:
+    name: system (${{ matrix.python-version }}, ${{ matrix.os }})
     strategy:
       matrix:
         python_version: ['3.9', '3.10', '3.11', '3.12']
@@ -30,7 +31,7 @@ jobs:
           pytest
 
   install-and-test-conda:
-    name: Conda tests (${{ matrix.python-version }}, ${{ matrix.os }})
+    name: conda (${{ matrix.python-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -43,13 +44,15 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - uses: conda-incubator/setup-miniconda@v3
+      - uses: mamba-org/setup-micromamba@v1
         with:
-          auto-update-conda: true
-          python-version: ${{ matrix.python-version }}
-      - name: Conda info
-        shell: bash -el {0}
+          environment-file: environment.yml
+          init-shell: >-
+            bash
+          cache-environment: true
+          post-cleanup: 'all'
+      - name: Install package and run tests
         run: |
-          mamba env create -f environment.yml
+          mamba install 'python=${{ matrix.python_version }}'
           pip install .[test] -v
           pytest
