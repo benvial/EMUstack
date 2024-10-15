@@ -5,17 +5,25 @@ BRANCH := "$(git branch --show-current)"
 
 PROJECT_DIR := "$(realpath $PWD)"
 
-VERSION := """$(python3 -c "from configparser import ConfigParser; p = ConfigParser(); p.read('setup.cfg'); print(p['metadata']['version'])")"""
+# VERSION := """$(python3 -c "from configparser import ConfigParser; p = ConfigParser(); p.read('setup.cfg'); print(p['metadata']['version'])")"""
+VERSION := """$(python3 -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")"""
+
+
+version:
+    @echo {{VERSION}}
 
 doc:
     cd docs && make html
 
+show:
+    firefox docs/build/html/index.html
 
 fortran:
     cd emustack/fortran && make clean && make
 
 clean:
-    rm -rf builddir .coverage *.egg-info docs/build .pytest_cache htmlcov .ruff_cache
+    rm -rf builddir build .coverage *.egg-info docs/build .pytest_cache htmlcov .ruff_cache
+    cd examples && rm -rf  *.txt *.log *.npz *.png *.pdf *.csv
     cd docs && make clean
 
 clean-fortran:

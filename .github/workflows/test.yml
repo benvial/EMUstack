@@ -5,7 +5,7 @@ jobs:
   install-and-test:
     strategy:
       matrix:
-        python_version: [3.9, 3.10, 3.11, 3.12]
+        python_version: ['3.9', '3.10', '3.11', '3.12']
         os: [ubuntu-24.04] #, windows-latest
     runs-on: ${{ matrix.os }}
     env:
@@ -26,5 +26,30 @@ jobs:
           python-version: ${{ matrix.python_version }}
       - name: Install package and run tests
         run: |
+          pip install .[test] -v
+          pytest
+
+  install-and-test-conda:
+    name: Conda tests (${{ matrix.python-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+    env:
+      OPENBLAS_NUM_THREADS: 1
+      OMP_NUM_THREADS: 1
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+      - name: Conda info
+        shell: bash -el {0}
+        run: |
+          mamba env create -f environment.yml
           pip install .[test] -v
           pytest

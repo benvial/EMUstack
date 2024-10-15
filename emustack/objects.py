@@ -29,7 +29,7 @@ import random
 import matplotlib.pyplot as plt
 
 from . import materials, paths
-from .fortran import EMUstack
+from .fortran import libemustack
 from .mode_calcs import Anallo, Simmo
 
 
@@ -1203,7 +1203,7 @@ class NanoStruct:
 				or self.force_mesh is True
 			):
 				open(msh_location + msh_name + ".geo", "w").write(geo)
-				EMUstack.conv_gmsh(msh_location + msh_name)
+				libemustack.conv_gmsh(msh_location + msh_name)
 
 			# # Automatically show created mesh in gmsh.
 			# gmsh_cmd = 'gmsh '+ msh_location + msh_name + '.msh'

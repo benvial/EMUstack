@@ -25,8 +25,6 @@ substrate refractive indices (keeping geometry fixed).
 We also average over a range of thicknesses to remove sharp Fabry-Perot resonances.
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -34,7 +32,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 
 # Number of CPUs to use in simulation
@@ -50,7 +47,7 @@ no_wl_1 = 3
 # Set up light objects
 wavelengths = np.linspace(wl_1, wl_2, no_wl_1)
 light_list = [
-	objects.Light(wl, max_order_PWs=2, theta=0.0, phi=0.0)
+	objects.Light(wl, max_order_PWs=1, theta=0.0, phi=0.0)
 	for wl in wavelengths
 ]
 
@@ -79,7 +76,7 @@ NWs = objects.NanoStruct(
 	loss=True,
 	make_mesh_now=True,
 	force_mesh=True,
-	lc_bkg=0.17,
+	lc_bkg=0.052,
 	lc2=2.5,
 )
 
@@ -97,6 +94,7 @@ def simulate_stack(light):
 			height_nm="semi_inf",
 			material=materials.Material(s + 0.0j),
 			loss=False,
+			world_1d=True,
 		)
 		sim_sub = sub.calc_modes(light)
 
@@ -124,7 +122,7 @@ def simulate_stack(light):
 pool = Pool(num_cores)
 stacks_list = pool.map(simulate_stack, light_list)
 # Save full simo data to .npz file for safe keeping!
-np.savez("Simo_results", stacks_list=stacks_list)
+# np.savez("Simo_results", stacks_list=stacks_list)
 
 
 ######################## Plotting ########################
@@ -158,35 +156,21 @@ ax1 = fig.add_subplot(1, 1, 1)
 ax1.plot(sub_ns, eta, "k-o", linewidth=linesstrength)
 ax1.set_xlabel("Substrate refractive index", fontsize=font)
 ax1.set_ylabel(r"$\eta$ (%)", fontsize=font)
-plt.savefig("eta_substrates")
+# plt.savefig("eta_substrates")
 
-# Animate spectra as a function of substrates.
-from os import system as ossys
+# # Animate spectra as a function of substrates.
+# from os import system as ossys
 
-delay = 30  # delay between images in gif in hundredths of a second
-names = "Total_Spectra_stack"
-gif_cmd = (
-	"convert -delay %(d)i +dither -layers Optimize -colors 16 \
-%(n)s*.pdf %(n)s.gif"
-	% {"d": delay, "n": names}
-)
-ossys(gif_cmd)
-opt_cmd = f"gifsicle -O2 {names}.gif -o {names}-opt.gif"
-ossys(opt_cmd)
-rm_cmd = f"rm {names}.gif"
-ossys(rm_cmd)
+# delay = 30  # delay between images in gif in hundredths of a second
+# names = "Total_Spectra_stack"
+# gif_cmd = (
+# 	"convert -delay %(d)i +dither -layers Optimize -colors 16 \
+# %(n)s*.pdf %(n)s.gif"
+# 	% {"d": delay, "n": names}
+# )
+# ossys(gif_cmd)
+# opt_cmd = f"gifsicle -O2 {names}.gif -o {names}-opt.gif"
+# ossys(opt_cmd)
+# rm_cmd = f"rm {names}.gif"
+# ossys(rm_cmd)
 
-
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()
-
-print("*******************************************")
-print(hms_string)
-print("*******************************************")

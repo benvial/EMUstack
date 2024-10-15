@@ -46,9 +46,8 @@ test = [
 doc = [
   "MarkupSafe",
   "Sphinx",
-  "pydata-sphinx-theme",
+  "sphinxawesome-theme",
   "sphinx-gallery",
-  "sphinx-copybutton",
   "memory_profiler",
 ]
 dev = ["ruff", "meson-python", "ninja"]

@@ -24,8 +24,6 @@ Here we introduce a shear transformation to shift layers relative to one
 another in the plane.
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -33,7 +31,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 
 # Number of CPUs to use in simulation
@@ -131,18 +128,3 @@ stacks_list = pool.map(simulate_stack, light_list)
 np.savez("Simo_results", stacks_list=stacks_list)
 
 plotting.t_r_a_plots(stacks_list)
-
-######################## Wrapping up ########################
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()
-
-print(hms_string)
-print("*******************************************")
-print("")

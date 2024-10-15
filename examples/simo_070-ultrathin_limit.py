@@ -24,16 +24,12 @@ Simulating an ultrathin film with a range of real and imaginary refractive
 indices. Can we reach the theoretical limit of 0.5 absorption?
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
 
 from emustack import materials, objects, plotting
 from emustack.stack import *
-
-start = time.time()
 
 # Remove results of previous simulations.
 plotting.clear_previous()
@@ -133,21 +129,3 @@ ax1.set_ylabel("Im(n)", fontsize=font)
 plt.title(
 	f"Absorption of {stacks_list[0][0].heights_nm()[0]:5.1f} nm thick film @ wl = {wl:5.1f}"
 )
-plt.savefig("ultrathin_limit")
-
-
-######################## Wrapping up ########################
-print("\n*******************************************")
-# Calculate and record the (real) time taken for simulation,
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-print(hms_string)
-print("*******************************************")
-print("")
-
-# and store this info.
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()

@@ -31,7 +31,7 @@ from numpy import sqrt
 from matplotlib.ticker import MultipleLocator
 
 from . import mode_calcs, objects, paths
-from .fortran import EMUstack
+from .fortran import libemustack
 
 
 Irrad_spec_file = os.path.join(paths.data_path, "ASTMG173")
@@ -1236,6 +1236,7 @@ def ult_efficiency(
 	params_2_print="",
 	stack_label="",
 	add_name="",
+	save_txt=False,
 ):
 	"""Photovoltaic ultimate efficiency.
 	
@@ -1259,11 +1260,12 @@ def ult_efficiency(
 	integral_tmp = np.trapz(expression, x=wavelengths)
 	Efficiency = integral_tmp / (bandgap_wl * ASTM15_tot_I)
 	params_2_print.split()
-	np.savetxt(
-		f"Efficiency_stack{stack_label}{add_name}.txt",
-		np.array([Efficiency]),
-		fmt="%8.6f",
-	)
+	if save_txt:
+		np.savetxt(
+			f"Efficiency_stack{stack_label}{add_name}.txt",
+			np.array([Efficiency]),
+			fmt="%8.6f",
+		)
 	return Efficiency
 
 
@@ -2369,7 +2371,7 @@ def fields_in_plane(
 						)
 					)
 
-					EMUstack.gmsh_plot_field(
+					libemustack.gmsh_plot_field(
 						meat.num_BMs,
 						meat.n_msh_el,
 						meat.n_msh_pts,
@@ -2706,7 +2708,7 @@ def fields_interpolator_in_plane(pstack, lay_interest=1, z_value=0.1):
 			)
 
 			# piling up of all the bloch modes to get all the fields
-			m_E = EMUstack.field_value_plane(
+			m_E = libemustack.field_value_plane(
 				meat.num_BMs,
 				meat.n_msh_el,
 				meat.n_msh_pts,
@@ -3038,7 +3040,7 @@ def fields_vertically(
 									) / float(layer.structure.period)
 									shift_v_plot = h_normed * 0.75
 									nnodes = 6
-									EMUstack.gmsh_plot_slice(
+									libemustack.gmsh_plot_slice(
 										layer.E_H_field,
 										layer.num_BMs,
 										layer.n_msh_el,
@@ -3974,7 +3976,7 @@ def fields_3d(stacks_list, lay_interest=1):
 				+ str(stack_num)
 			)
 
-			EMUstack.gmsh_plot_field_3d(
+			libemustack.gmsh_plot_field_3d(
 				wl_normed,
 				h_normed,
 				meat.num_BMs,

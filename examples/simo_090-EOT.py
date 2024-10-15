@@ -24,8 +24,6 @@ Simulating Extraordinary Optical Transmission
 as in H. Liu, P. Lalanne, Nature 452 2008 doi:10.1038/nature06762
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -33,7 +31,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 
 # Number of CPUs to use in simulation
@@ -122,19 +119,3 @@ for h in range(len(NH_heights)):
 	plotting.EOT_plot(wl_list, wls_normed, add_name=mess_name, savetxt=True)
 # Dispersion
 plotting.omega_plot(wl_list, wavelengths)
-
-
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()
-
-print("*******************************************")
-print(hms_string)
-print("*******************************************")
-print("")

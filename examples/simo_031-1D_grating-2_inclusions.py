@@ -23,16 +23,12 @@
 Increase complexity of grating to contain 2 inclusions that are interleaved.
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
 
 from emustack import materials, objects, plotting
 from emustack.stack import *
-
-start = time.time()
 
 # Remove results of previous simulations.
 plotting.clear_previous()
@@ -122,19 +118,3 @@ np.savez("Simo_results", stacks_list=stacks_list)
 ######################## Post Processing ########################
 # The total transmission should be zero.
 plotting.t_r_a_plots(stacks_list)
-
-######################## Wrapping up ########################
-print("\n*******************************************")
-# Calculate and record the (real) time taken for simulation,
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-print(hms_string)
-print("*******************************************")
-print("")
-
-# and store this info.
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()

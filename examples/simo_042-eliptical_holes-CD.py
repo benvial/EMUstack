@@ -23,8 +23,6 @@ Simulating circular dichroism effect in elliptic nano hole arrays
 as in T Cao1 and Martin J Cryan doi:10.1088/2040-8978/14/8/085101.
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -32,7 +30,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 
 # Number of CPUs to use in simulation
@@ -129,18 +126,3 @@ title = "what_a_lovely_day-"
 
 plotting.t_r_a_plots(stacks_list, add_height=Au_NHs.height_nm, add_name=title)
 
-
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()
-
-print("*******************************************")
-print(hms_string)
-print("*******************************************")
-print("")

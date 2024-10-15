@@ -27,19 +27,15 @@ http://dx.doi.org/10.1103/PhysRevB.91.155427
 mode_finder function implemented by J. Scott Brownless.
 """
 
-import csv
-import datetime
-import sys
-import time
 from multiprocessing import Pool
 
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy import optimize
 
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 # Number of CPUs to use in simulation
 num_cores = 1
@@ -87,17 +83,18 @@ NW_array = objects.NanoStruct(
 	hyperbolic=True,
 	make_mesh_now=True,
 	force_mesh=True,
-	lc_bkg=0.05,
+	lc_bkg=0.2,
 	lc2=4.0,
 )
 
 
 def simulate_stack(lyte):
+	num_BMs = 11
 	wl = lyte[0]
 	kx = lyte[1]
-	light = objects.Light(wl, max_order_PWs=2, k_parallel=[kx, 0.000000000001])
+	light = objects.Light(wl, max_order_PWs=1, k_parallel=[kx, 0.000000000001])
 	################ Evaluate each layer individually ##############
-	sim_NWs = NW_array.calc_modes(light)
+	sim_NWs = NW_array.calc_modes(light, num_BMs=num_BMs)
 	sim_strate = strate.calc_modes(light)
 	stack = Stack((sim_strate, sim_NWs, sim_strate))
 	stack.calc_scat(pol="TE")
@@ -113,20 +110,16 @@ def simulate_stack(lyte):
 	return detskew
 
 
-def mode_finder(xxx_todo_changeme):
-	(det_mat_slice, wl_list, kx) = xxx_todo_changeme
+def mode_finder(disp_input):
+	(det_mat_slice, wl_list, kx) = disp_input
 	dispcurve = []
 	xtol = 1e-4 * wl_0
 	for j in range(len(wl_list) - 1):
-		# Check determinant crosses zero, noth real and imaginary
+		# Check determinant crosses zero, both real and imaginary
 		if np.real(det_mat_slice[j]) * np.real(det_mat_slice[j + 1]) < 0:
 			if np.imag(det_mat_slice[j]) * np.imag(det_mat_slice[j + 1]) < 0:
-				if j != 0:
-					diffreq = np.abs(det_mat_slice[j - 1] - det_mat_slice[j])
-				else:
-					diffreq = np.abs(
-						det_mat_slice[j + 2] - det_mat_slice[j + 1]
-					)
+				diffreq = np.abs(det_mat_slice[j - 1] - det_mat_slice[j])
+		
 				# Check we are not just at a discontinuity
 				if (
 					np.abs(det_mat_slice[j + 1] - det_mat_slice[j])
@@ -159,31 +152,8 @@ def mode_finder(xxx_todo_changeme):
 # Run in parallel across wavelengths.
 pool = Pool(num_cores)
 stacks_list = pool.map(simulate_stack, light_list)
-# # Save full simo data to .npz file for safe keeping!
-# simotime = str(time.strftime("%Y%m%d%H%M%S", time.localtime()))
-# np.savez('Simo_results'+simotime, stacks_list=stacks_list)
 
 stacks_mat = np.array(stacks_list).reshape(len(kx_list), len(wl_list))
-filecsv3 = "stackmat.csv"
-datalist3 = open(filecsv3, "w")
-for i in range(len(wl_list)):
-	string3 = (
-		str(np.real(stacks_mat[0, i]))
-		+ ","
-		+ str(np.imag(stacks_mat[0, i]))
-		+ ","
-		+ str(np.real(stacks_mat[1, i]))
-		+ ","
-		+ str(np.imag(stacks_mat[1, i]))
-		+ ","
-		+ str(np.real(stacks_mat[2, i]))
-		+ ","
-		+ str(np.imag(stacks_mat[2, i]))
-		+ ","
-		+ "\n"
-	)
-	datalist3.write(string3)
-datalist3.close
 
 disp_input = []
 for i in range(len(kx_list)):
@@ -196,33 +166,13 @@ displist = []
 for dixp in dispy:
 	displist += dixp
 
-filecsv = "dispcurve.csv"
-datalist = open(filecsv, "w")
-for mode in displist:
-	string = str(mode[0]) + "," + str(mode[1]) + "\n"
-	datalist.write(string)
-datalist.close
+displist = np.array(displist)
+k_norm = 1e-9 * displist[:,0] / k_0
+omega_norm = 1e-9 * displist[:,1] / omega_0
 
-filecsv2 = "dispcurvenorm.csv"
-datalist2 = open(filecsv2, "w")
-for mode in displist:
-	string2 = (
-		str(1e-9 * mode[0] / k_0) + "," + str(1e-9 * mode[1] / omega_0) + "\n"
-	)
-	datalist2.write(string2)
-datalist2.close
+plt.figure()
+plt.plot(k_norm,omega_norm)
+plt.xlabel(r"$k/k_0$")
+plt.ylabel(r"$\omega/\omega_0$")
 
-######################## Wrapping up ########################
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
 
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()
-
-print(hms_string)
-print("*******************************************")
-print("")

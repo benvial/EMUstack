@@ -1,8 +1,7 @@
 
 
 
-
-project('emustack','fortran','c',
+project('libemustack','fortran','c',
   meson_version: '>=1.1',
   default_options : ['warning_level=2'],
 )
@@ -12,3 +11,7 @@ py = py_mod.find_installation(pure: false)
 py_dep = py.dependency()
 
 subdir('emustack')
+
+
+
+

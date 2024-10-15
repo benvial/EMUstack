@@ -23,8 +23,6 @@ Plotting amplitudes.
 Here we investigate how efficiently a stack of 1D gratings excite diffraction orders.
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -32,7 +30,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 
 # Number of CPUs to use in simulation
@@ -138,18 +135,3 @@ plotting.BM_amplitudes(
 # layer and the stack.
 plotting.t_r_a_plots(stacks_list, xvalues=wavelengths)
 
-
-######################## Wrapping up ########################
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()
-
-print(hms_string)
-print("*******************************************")
-print("")

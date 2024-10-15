@@ -3,9 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to EMUstack's documentation!
-====================================
+EMUstack documentation
+======================
 
+
+.. rst-class:: lead
+
+    Version |version|, last updated on |today|
+
+
+EMUstack is an open-source simulation package for calculating light propagation through multi-layered stacks of dispersive, lossy, nanostructured, optical media. It implements a generalised scattering matrix method, which extends the physical intuition of thin film optics to complex structures.
+
+.. image:: _static/emustack.png
 
 .. toctree::
     :maxdepth: 4

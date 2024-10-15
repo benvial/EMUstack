@@ -22,8 +22,6 @@ Nanowire array.
 Simulating a nanowire array with period 600 nm and NW diameter 120 nm.
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -31,7 +29,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 
 # Number of CPUs to use in simulation
@@ -136,18 +133,3 @@ plotting.t_r_a_plots(stacks_list, active_layer_nu=1, J_sc=True)
 
 # We also plot the dispersion relation for each layer.
 plotting.omega_plot(stacks_list, wavelengths)
-
-######################## Wrapping up ########################
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()
-
-print(hms_string)
-print("*******************************************")
-print("")

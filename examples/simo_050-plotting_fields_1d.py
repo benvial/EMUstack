@@ -22,8 +22,6 @@ Plotting fields.
 Show how to plot electric fields.
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -31,7 +29,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 
 # Number of CPUs to use in simulation
@@ -120,18 +117,3 @@ np.savez("Simo_results", stacks_list=stacks_list)
 # The above fields are the total fields, we can also look at the fields of
 # each individual Bloch mode, which for a 1D array is done like so,
 plotting.Bloch_fields_1d(stacks_list)
-
-######################## Wrapping up ########################
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()
-
-print(hms_string)
-print("*******************************************")
-print("")

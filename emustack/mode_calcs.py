@@ -25,7 +25,7 @@ import os
 import numpy as np
 
 from . import paths
-from .fortran import EMUstack
+from .fortran import libemustack
 
 _interfaces_i_have_known = {}
 pi = np.pi
@@ -372,7 +372,7 @@ class Simmo(Modes):
 				num_pw_per_pol_2d = pxs.size
 
 			try:
-				resm = EMUstack.calc_modes_1d(
+				resm = libemustack.calc_modes_1d(
 					self.wl_norm(),
 					self.num_BMs,
 					self.max_order_PWs,
@@ -428,7 +428,7 @@ class Simmo(Modes):
 			int_max = 2**22
 
 			try:
-				resm = EMUstack.calc_modes_2d(
+				resm = libemustack.calc_modes_2d(
 					self.wl_norm(),
 					self.num_BMs,
 					self.max_order_PWs,

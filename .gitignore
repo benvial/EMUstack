@@ -6,6 +6,10 @@
 examples/*.txt
 examples/*.pdf
 examples/*.log
+examples/*.png
+examples/*.npz
+examples/*.pdf
+examples/*.csv
 docs/*.tex
 docs/*.aux
 docs/*.log

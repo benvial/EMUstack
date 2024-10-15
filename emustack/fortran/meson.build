@@ -46,14 +46,14 @@ fortran_files = files(['field_value_plane.f', 'write_sol.f', 'csr_length.f', 'ph
  'matrix_kyy_1d.f', 'J_overlap.f', 'matrix_myy_1d.f', 'phi2_2d_mat.f'])
 
 
-emustack_source = custom_target('EMUstackmodule.c',
+emustack_source = custom_target('libemustackmodule.c',
   input :  python_subroutines,
-  output : ['EMUstackmodule.c', 'EMUstack-f2pywrappers.f'],
-  command : [py, '-m', 'numpy.f2py', '@INPUT@',  '-m', 'EMUstack', '--lower', '--build-dir', 'emustack/fortran'],
+  output : ['libemustackmodule.c', 'libemustack-f2pywrappers.f'],
+  command : [py, '-m', 'numpy.f2py', '@INPUT@',  '-m', 'libemustack', '--lower', '--build-dir', 'emustack/fortran'],
 )
 
 
-py.extension_module('EMUstack',
+py.extension_module('libemustack',
   python_subroutines + fortran_files + emustack_source,
   incdir_f2py / 'fortranobject.c',
   include_directories: inc_np,

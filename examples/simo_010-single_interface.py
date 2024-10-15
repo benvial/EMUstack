@@ -23,8 +23,6 @@ Single interface.
 Simulating an interface between 2 homogeneous, non-dispersive media.
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -32,7 +30,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 
 #######################################################
 # Parameters
@@ -158,24 +155,3 @@ plotting.vis_scat_mats(R_interface)
 # Lastly, we can also plot the transmission, reflection, absorption
 # of each layer and of the stack as a whole.
 plotting.t_r_a_plots(stacks_list)
-
-#######################################################
-# p.s. we'll keep an eye on the time...
-print("\n*******************************************")
-#######################################################
-# Wrapping up:
-#
-# Calculate and record the (real) time taken for simulation,
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-print(hms_string)
-print("*******************************************")
-print("")
-
-#######################################################
-# and store this info.
-python_log = open("python_log.log", "w")
-python_log.write(hms_string)
-python_log.close()

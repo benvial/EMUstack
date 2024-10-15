@@ -23,8 +23,6 @@ Stacked gratings.
 Replicate Fig 2a from Handmer Opt Lett 2010
 """
 
-import datetime
-import time
 from multiprocessing import Pool
 
 import numpy as np
@@ -32,7 +30,6 @@ import numpy as np
 from emustack import materials, objects, plotting
 from emustack.stack import *
 
-start = time.time()
 ################ Simulation parameters ################
 
 # Number of CPUs to use in simulation
@@ -44,12 +41,10 @@ num_cores = 1
 ################ Light parameters #####################
 wavelengths = np.linspace(1600, 900, 1)
 
-BMs = [
-	1419
-]  # [11, 27, 59, 99, 163, 227, 299, 395, 507, 635, 755, 883, 1059, 1227, 1419]
+BMs = [11, 27, 59, 99, 163]#, 227, 299, 395, 507, 635]#, 755, 883, 1059, 1227, 1419]
 B = 0
 
-for PWs in np.linspace(1, 10, 10):
+for PWs in np.linspace(1, len(BMs), len(BMs)):
 	light_list = [
 		objects.Light(wl, max_order_PWs=PWs, theta=28.0, phi=0.0)
 		for wl in wavelengths
@@ -89,7 +84,7 @@ for PWs in np.linspace(1, 10, 10):
 		make_mesh_now=True,
 		force_mesh=True,
 		lc_bkg=lc_bkg,
-		lc2=3.0,
+		lc2=3.0*1,
 	)
 
 	grating_2 = objects.NanoStruct(
@@ -103,10 +98,11 @@ for PWs in np.linspace(1, 10, 10):
 		make_mesh_now=True,
 		force_mesh=True,
 		lc_bkg=lc_bkg,
-		lc2=3.0,
+		lc2=3.0*1,
 	)
 
 	num_BMs = BMs[B] + 30
+	print(num_BMs)
 	B += 1
 
 	def simulate_stack(light):
@@ -131,24 +127,9 @@ for PWs in np.linspace(1, 10, 10):
 	# Run in parallel across wavelengths.
 	pool = Pool(num_cores)
 	stacks_list = pool.map(simulate_stack, light_list)
+	# stacks_list = [simulate_stack([light]) for light in light_list]
 	# # Save full simo data to .npz file for safe keeping!
 	# np.savez("Simo_results", stacks_list=stacks_list)
 
 	additional_name = str(int(PWs))
 	plotting.t_r_a_plots(stacks_list, add_name=additional_name)
-
-
-######################## Wrapping up ########################
-# Calculate and record the (real) time taken for simulation
-elapsed = time.time() - start
-hms = str(datetime.timedelta(seconds=elapsed))
-hms_string = f"Total time for simulation was \n \
-    {hms} ({elapsed:12.3f} seconds)"
-
-# python_log = open("python_log.log", "w")
-# python_log.write(hms_string)
-# python_log.close()
-
-print(hms_string)
-print("*******************************************")
-print("")
