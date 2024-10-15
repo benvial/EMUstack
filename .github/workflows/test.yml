@@ -26,6 +26,5 @@ jobs:
           python-version: ${{ matrix.python_version }}
       - name: Install package and run tests
         run: |
-          pip install meson-python ninja
           pip install .[test] -v
           pytest
