@@ -44,8 +44,9 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Install package and run tests
+      - name: Install conda
         uses: conda-incubator/setup-miniconda@v3
+      - name: Install package and run tests
         run: |
           conda install mamba
           mamba env create -n emustack python=${{ matrix.python-version }}
