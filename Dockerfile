@@ -1,6 +1,6 @@
 FROM ubuntu:latest
-SHELL ["/bin/bash", "-c"]
 USER root
+SHELL ["/bin/bash", "-c"]
 ENV OPENBLAS_NUM_THREADS=1
 ENV OMP_NUM_THREADS=1
 RUN apt-get update && apt-get install -y --no-install-recommends \

@@ -11,7 +11,7 @@ if ss_dep.found() == false
       check : true
   ).stdout().strip()
   inc_ss = incdir_python + '/suitesparse'
-  if run_command('[', '-d', inc_ss, ']').returncode() != 0
+  if run_command('[', '-d', inc_ss, ']', check: true).returncode() != 0
     inc_ss = '/usr/include/suitesparse'
   endif
   ss_dep = declare_dependency(dependencies : [ umfpack_dep_tmp ],

@@ -1,13 +1,11 @@
 
-PROJECT_NAME := "pylatt"
+PROJECT_NAME := "emustack"
 
 BRANCH := "$(git branch --show-current)"
 
 PROJECT_DIR := "$(realpath $PWD)"
 
-# VERSION := """$(python3 -c "from configparser import ConfigParser; p = ConfigParser(); p.read('setup.cfg'); print(p['metadata']['version'])")"""
 VERSION := """$(python3 -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")"""
-
 
 version:
     @echo {{VERSION}}
@@ -41,7 +39,7 @@ bld:
     meson compile -C builddir
 
 test-fortran:
-    cd builddir/emustack/fortran && python -c "import EMUstack"
+    cd builddir/emustack/fortran && python -c "import libemustack"
 
 
 # Push to gitlab

@@ -22,7 +22,7 @@ EMUstack is free software; you can redistribute it and/or modify it under the te
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License in the EMUstack/ directory. If not, see `here <http://www.gnu.org/copyleft/gpl.html>`_
+You should have received a copy of the GNU General Public License in the EMUstack/ directory. If not, see [here](http://www.gnu.org/copyleft/gpl.html).
 
 
 OFFICIALLY SUPPORTED PLATFORMS
@@ -94,9 +94,9 @@ ____ **ref** reference data for tests.
 HELP!
 -----
 
-The growing human-readable documentation for EMUstack lives in EMUstack/docs/ and online at `readthedocs <http://emustack.readthedocs.org/en/latest/index.html>`_.org.
+The growing human-readable documentation for EMUstack lives in EMUstack/docs/ and online at [readthedocs](http://emustack.readthedocs.org/en/latest/index.html).org.
 
-Limited community support is `available on the GitHub site <https://github.com/bjornsturmberg/EMUstack>`_, and via `the EMUstack mailing list <https://groups.google.com/forum/#!forum/emustack>`_. Feel free to ask questions.
+Limited community support is [available on the GitHub site](https://github.com/bjornsturmberg/EMUstack), and via [the EMUstack mailing list](https://groups.google.com/forum/#!forum/emustack>). Feel free to ask questions.
 
 
 CONTRIBUTING

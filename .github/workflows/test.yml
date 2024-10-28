@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-24.04"]
         python-version: ['3.9', '3.10', '3.11', '3.12']
     env:
       OPENBLAS_NUM_THREADS: 1
@@ -53,6 +53,6 @@ jobs:
         run: |
           mamba create -n emustack python=${{ matrix.python-version }}
           mamba env update -n emustack -f environment.yml
-          conda activate emustack
+          mamba activate emustack
           pip install .[test] -v
           pytest
