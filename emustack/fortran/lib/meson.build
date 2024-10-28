@@ -1,17 +1,19 @@
 
 
+conda = get_option('conda')
 ## finding suitesparse the dependency way
 ss_dep =  dependency('suitesparse', required:false)
 if ss_dep.found() == false
   # find suitesparse installed with conda/mamba
   c_compiler = meson.get_compiler('c')
   umfpack_dep_tmp = c_compiler.find_library('umfpack')
-  incdir_python= run_command(py,
-      ['-c', 'import os; from sysconfig import get_paths; print(os.path.dirname(get_paths()["include"]))'],
-      check : true
-  ).stdout().strip()
-  inc_ss = incdir_python + '/suitesparse'
-  if run_command('[', '-d', inc_ss, ']', check: true).returncode() != 0
+  if conda
+    incdir_python= run_command(py,
+        ['-c', 'import os; from sysconfig import get_paths; print(os.path.dirname(get_paths()["include"]))'],
+        check : true
+    ).stdout().strip()
+    inc_ss = incdir_python + '/suitesparse'
+  else
     inc_ss = '/usr/include/suitesparse'
   endif
   ss_dep = declare_dependency(dependencies : [ umfpack_dep_tmp ],

@@ -56,3 +56,7 @@ save: gl
 
 test:
     pytest
+
+
+docker-build:
+    docker build . -t emustack

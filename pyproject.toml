@@ -1,6 +1,6 @@
 [build-system]
 build-backend = 'mesonpy'
-requires = ['meson-python', 'meson >= 0.64.0', "numpy >=1.20"]
+requires = ['meson-python', "numpy >=1.22"]
 
 [project]
 name = 'emustack'
@@ -29,7 +29,7 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Mathematics",
   "Topic :: Utilities",
 ]
-dependencies = ["numpy >= 1.20", "scipy >= 0.18.0", "matplotlib", "gmsh"]
+dependencies = ["numpy >= 1.22", "scipy >= 0.18.0", "matplotlib", "gmsh"]
 
 [tool.setuptools]
 packages = ["emustack"]
