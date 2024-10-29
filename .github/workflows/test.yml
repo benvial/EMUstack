@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['ubuntu-24.04']
+        os: ['ubuntu-latest']
         python-version: ['3.9', '3.10', '3.11', '3.12']
     env:
       OPENBLAS_NUM_THREADS: 1
@@ -48,7 +48,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-version: latest
-          mamba-version: '*'
+          # mamba-version: '*'
       - name: Install package and run tests
         shell: bash -el {0}
         run: |
