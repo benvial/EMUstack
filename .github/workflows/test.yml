@@ -48,7 +48,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-version: latest
-          mamba-version: latest
+          mamba-version: '*'
       - name: Install package and run tests
         shell: bash -el {0}
         run: |
